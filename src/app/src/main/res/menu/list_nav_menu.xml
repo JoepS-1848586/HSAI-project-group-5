@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/list_nav_explore"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/title_explore"/>
+
+    <item
+        android:id="@+id/list_nav_products"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/title_products"/>
+
+    <item
+        android:id="@+id/list_nav_shops"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/title_shops"/>
+
+    <item
+        android:id="@+id/list_nav_map"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/title_map"/>
+
+    <item
+        android:id="@+id/list_nav_wishlist"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/title_wishlist"/>
+
+    <item
+        android:id="@+id/list_nav_shoppingcart"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/title_shoppingcart"/>
+
+    <item
+        android:id="@+id/list_nav_compare"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/title_compare"/>
+
+    <item
+        android:id="@+id/list_nav_profile"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/title_profile"/>
+
+    <item
+        android:id="@+id/list_nav_notifications"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/title_notifications"/>
+
+    <item
+        android:id="@+id/list_nav_settings"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/title_settings"/>
+</menu>

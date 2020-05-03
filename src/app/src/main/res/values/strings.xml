@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">HSAI_project</string>
+    <string name="title_explore">Explore</string>
+    <string name="title_products">Producten</string>
+    <string name="title_shops">Winkels</string>
+    <string name="title_map">Kaart</string>
+    <string name="title_wishlist">Wishlist</string>
+    <string name="title_shoppingcart">Winkelwagen</string>
+    <string name="title_reservations">Reservaties</string>
+    <string name="title_compare">Vergelijken</string>
+    <string name="title_profile">Profiel</string>
+    <string name="title_notifications">Notificaties</string>
+    <string name="title_settings">Instellingen</string>
+</resources>

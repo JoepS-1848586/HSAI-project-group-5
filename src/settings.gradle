@@ -1,0 +1,2 @@
+rootProject.name='HSAI_project'
+include ':app'

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/bottom_nav_explore">
+
+    <fragment
+        android:id="@+id/bottom_nav_explore"
+        android:name="com.example.hsai_project.fragments.ExploreFragment"
+        android:label="@string/title_explore"
+        tools:layout="@layout/fragment_explore" />
+
+    <fragment
+        android:id="@+id/bottom_nav_products"
+        android:name="com.example.hsai_project.fragments.ProductsFragment"
+        android:label="@string/title_products"
+        tools:layout="@layout/fragment_products" />
+
+    <fragment
+        android:id="@+id/bottom_nav_shops"
+        android:name="com.example.hsai_project.fragments.ShopsFragment"
+        android:label="@string/title_shops"
+        tools:layout="@layout/fragment_shops" />
+
+    <fragment
+        android:id="@+id/bottom_nav_map"
+        android:name="com.example.hsai_project.fragments.MapFragment"
+        android:label="@string/title_map"
+        tools:layout="@layout/fragment_map" />
+
+    <fragment
+        android:id="@+id/list_nav_wishlist"
+        android:name="com.example.hsai_project.fragments.WishlistFragment"
+        android:label="@string/title_wishlist"
+        tools:layout="@layout/fragment_wishlist" />
+
+    <fragment
+        android:id="@+id/list_nav_shoppingcart"
+        android:name="com.example.hsai_project.fragments.ShoppingcartFragment"
+        android:label="@string/title_shoppingcart"
+        tools:layout="@layout/fragment_shoppingcart" />
+
+    <fragment
+        android:id="@+id/list_nav_reservations"
+        android:name="com.example.hsai_project.fragments.ReservationsFragment"
+        android:label="@string/title_reservations"
+        tools:layout="@layout/fragment_reservations" />
+
+    <fragment
+        android:id="@+id/list_nav_compare"
+        android:name="com.example.hsai_project.fragments.CompareFragment"
+        android:label="@string/title_compare"
+        tools:layout="@layout/fragment_compare" />
+
+    <fragment
+        android:id="@+id/list_nav_profile"
+        android:name="com.example.hsai_project.fragments.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/list_nav_notifications"
+        android:name="com.example.hsai_project.fragments.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/list_nav_settings"
+        android:name="com.example.hsai_project.fragments.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <action
+        android:id="@+id/list_nav_explore"
+        app:destination="@id/bottom_nav_explore"
+        ></action>
+    <action
+        android:id="@+id/list_nav_products"
+        app:destination="@id/bottom_nav_products"
+        ></action>
+    <action
+        android:id="@+id/list_nav_shops"
+        app:destination="@id/bottom_nav_shops"
+        ></action>
+    <action
+        android:id="@+id/list_nav_map"
+        app:destination="@id/bottom_nav_map"
+        ></action>
+
+</navigation>
