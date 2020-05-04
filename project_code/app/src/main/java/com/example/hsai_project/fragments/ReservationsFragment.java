@@ -18,9 +18,6 @@ public class ReservationsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_reservations, container, false);
 
-        final TextView textView = root.findViewById(R.id.text_reservations);
-        textView.setText("reservations");
-
         return root;
     }
 }

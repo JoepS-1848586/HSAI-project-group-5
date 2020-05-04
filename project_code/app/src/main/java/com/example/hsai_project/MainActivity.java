@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.bottom_nav_hamburger:
                         drawerLayout.openDrawer(navView);
-                        return false;
+                        break;
                 }
                 return true;
             }
