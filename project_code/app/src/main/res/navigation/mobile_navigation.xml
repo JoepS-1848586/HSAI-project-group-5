@@ -18,6 +18,12 @@
         tools:layout="@layout/fragment_products" />
 
     <fragment
+        android:id="@+id/product_categorie_sub"
+        android:name="com.example.hsai_project.fragments.ProductCategorieFragment"
+        android:label="@string/title_products"
+        tools:layout="@layout/fragment_product_subcategorie" />
+
+    <fragment
         android:id="@+id/bottom_nav_shops"
         android:name="com.example.hsai_project.fragments.ShopsFragment"
         android:label="@string/title_shops"
