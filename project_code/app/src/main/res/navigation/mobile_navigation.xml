@@ -37,9 +37,10 @@
 
     <fragment
         android:id="@+id/list_nav_shoppingcart"
-        android:name="com.example.hsai_project.fragments.ShoppingcartFragment"
+        android:name="com.example.hsai_project.fragments.shoppingcart.ShoppingcartFragment"
         android:label="@string/title_shoppingcart"
-        tools:layout="@layout/fragment_shoppingcart" />
+        tools:layout="@layout/fragment_shoppingcart" >
+    </fragment>
 
     <fragment
         android:id="@+id/list_nav_reservations"

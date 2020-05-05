@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".fragments.ShoppingcartItemFragment"
+    tools:context=".fragments.shoppingcart.ShoppingcartItemFragment"
     android:clickable="true">
 
 
@@ -65,7 +65,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginHorizontal="10dp"
                 android:textAlignment="center"
-                android:text="0"/>
+                android:text="1"/>
 
 
         </RelativeLayout>

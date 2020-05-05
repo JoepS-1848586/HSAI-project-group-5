@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".fragments.ReservationsItemFragment"
+    tools:context=".fragments.shoppingcart.ShoppingcartDeleteItem"
     android:clickable="true">
 
 
@@ -16,13 +16,13 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@color/cardview_dark_background"
-            android:id="@+id/reservations_item_image"></ImageView>
+            android:id="@+id/shoppingcart_delete_image"></ImageView>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/reservations_item_image"
+            android:layout_toRightOf="@id/shoppingcart_delete_image"
             android:layout_marginLeft="10dp">
             <TextView
                 android:layout_width="wrap_content"
@@ -33,42 +33,15 @@
                 android:layout_height="wrap_content"
                 android:text="STORE NAME"></TextView>
         </LinearLayout>
-        <LinearLayout
+        <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:orientation="vertical">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:background="@color/deleteRed"
-                android:id="@+id/reservations_item_removebutton"
-                android:text="@string/cancel_reservation"
-                android:textSize="12dp"
-                ></Button>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
-                <TextView
-                    android:id="@+id/reservations_item_amountlabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/amountlabel_reservation"
-                    android:layout_marginRight="10dp"/>
-                <TextView
-                    android:id="@+id/reservations_item_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1"></TextView>
-            </LinearLayout>
-
-
-        </LinearLayout>
+            android:id="@+id/shoppingcart_delete_item_checkbox"
+            android:scaleX="2"
+            android:scaleY="2"></CheckBox>
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
