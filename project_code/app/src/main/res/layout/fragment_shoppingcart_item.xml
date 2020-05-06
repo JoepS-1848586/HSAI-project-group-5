@@ -23,21 +23,37 @@
             android:orientation="vertical"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/shoppingcart_item_image"
-            android:layout_marginLeft="10dp">
+            android:layout_marginLeft="10dp"
+            android:id="@+id/shoppingcart_product_text">
             <TextView
+                android:id="@+id/shoppingcart_item_productname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PRODUCT NAME"></TextView>
+                android:text="PRODUCT NAME"
+                android:textSize="17dp"
+                android:layout_marginBottom="5dp"></TextView>
             <TextView
+                android:id="@+id/shoppingcart_item_storename"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="STORE NAME"></TextView>
         </LinearLayout>
-        <RelativeLayout
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="€200"
+            android:layout_toLeftOf="@id/shoppingcart_item_amountbuttons"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:textSize="20dp"></TextView>
+        <RelativeLayout
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true">
+            android:layout_centerVertical="true"
+            android:id="@+id/shoppingcart_item_amountbuttons">
 
             <Button
                 android:layout_width="30dp"

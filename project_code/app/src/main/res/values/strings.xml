@@ -17,6 +17,11 @@
     <string name="reservate_shoppingcart">Reserveer</string>
     <string name="deletebutton_shoppingcart_delete">Haal items uit wagen</string>
 
+    <string name="reservation_cancel_text">Reservatie annuleren?</string>
+    <string name="reservation_cancel_confirm">Annuleer</string>
+    <string name="reservation_cancel_stop">Stoppen</string>
+    <string name="reservation_cancel_toast">Resevatie geannuleerd</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

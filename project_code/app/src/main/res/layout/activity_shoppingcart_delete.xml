@@ -13,34 +13,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <fragment
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:name="com.example.hsai_project.fragments.shoppingcart.ShoppingcartDeleteItem"
-                android:id="@+id/shoppingcart_delete_frag"
-                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-                android:layout_marginVertical="@dimen/activity_vertical_margin">
-            </fragment>
+            android:orientation="vertical"
+            android:id="@+id/shoppingcart_delete_fragmentcontainer">
         </LinearLayout>
     </ScrollView>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:id="@+id/shoppingcart_buttons">
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/deletebutton_shoppingcart_delete"
             android:layout_margin="10dp"
             android:background="@color/deleteRed"
-            android:layout_centerVertical="true"></Button>
-
-    </RelativeLayout>
-
+            android:layout_centerVertical="true"
+            android:id="@+id/shoppingcart_delete_button"
+            android:layout_alignParentBottom="true"></Button>
 
 
 </RelativeLayout>

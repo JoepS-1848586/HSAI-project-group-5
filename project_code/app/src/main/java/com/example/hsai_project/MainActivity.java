@@ -12,6 +12,7 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.room.Room;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -69,5 +70,16 @@ public class MainActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle(destination.getLabel());
             }
         });
+
+
+        insertDataBaseTestData();
+    }
+
+
+    void insertDataBaseTestData(){
+        ProductDatabase db = Room.databaseBuilder(getApplicationContext(), ProductDatabase.class, "product_table")
+                .allowMainThreadQueries().build();
+
+        db.productDao().update(new ProductEntity("testname", 100, "teststore"));
     }
 }

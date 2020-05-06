@@ -3,6 +3,7 @@ package com.example.hsai_project.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,17 +11,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.hsai_project.ProductDatabase;
+import com.example.hsai_project.ProductEntity;
 import com.example.hsai_project.R;
+import com.example.hsai_project.WishlistEntity;
 
 
 public class ProductViewFragment extends Fragment {
 
     private boolean m_fav = false;
-    private TextView m_name;
-    private TextView m_price;
+    private ProductEntity m_product;
+
 
     public ProductViewFragment() {
-        // Required empty public constructor
+        m_product = new ProductEntity("empty product name", 0, "empty product storename");
+    }
+
+    public ProductViewFragment(ProductEntity product){
+        m_product = product;
     }
 
 
@@ -43,10 +51,10 @@ public class ProductViewFragment extends Fragment {
             }
         });
 
-        m_name = (TextView) root.findViewById(R.id.product_text);
-        // TODO set name
-        m_price = (TextView) root.findViewById(R.id.product_price);
-        // TODO set price
+        TextView name = (TextView) root.findViewById(R.id.product_text);
+        name.setText(m_product.getProductName());
+        TextView price = (TextView) root.findViewById(R.id.product_price);
+        price.setText(String.valueOf(m_product.getPrice()));
 
 
         return root;
@@ -61,14 +69,29 @@ public class ProductViewFragment extends Fragment {
     private void toggleFavorite(View v){
         ImageView view = ((ImageView)v);
         m_fav = !m_fav;
-        if(m_fav)
+        if(m_fav) {
             view.setImageResource(R.drawable.ic_favorite_black_24dp);
-        else
+            removeFromWishlist();
+        }
+        else {
+            addToWishlist();
             view.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+        }
     }
 
-    private void onClick(){
 
+    private void addToWishlist(){
+        ProductDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), ProductDatabase.class, "shoppincart_table")
+                .allowMainThreadQueries().build();
+
+        db.productDao().insertWishlist(new WishlistEntity(m_product.getId()));
+    }
+
+    private void removeFromWishlist(){
+        ProductDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), ProductDatabase.class, "shoppincart_table")
+                .allowMainThreadQueries().build();
+
+        db.productDao().deleteWishlist(m_product.getId());
     }
 
 }

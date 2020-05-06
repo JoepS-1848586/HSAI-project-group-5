@@ -50,7 +50,7 @@
 
     <fragment
         android:id="@+id/list_nav_reservations"
-        android:name="com.example.hsai_project.fragments.ReservationsFragment"
+        android:name="com.example.hsai_project.fragments.reservations.ReservationsFragment"
         android:label="@string/title_reservations"
         tools:layout="@layout/fragment_reservations" />
 
