@@ -29,7 +29,7 @@ public class ReservationsFragment extends Fragment {
         return root;
     }
 
-    private void addFragment(ReservationItem data){
+    public void addFragment(ReservationItem data){
         ReservationsItemFragment frag = new ReservationsItemFragment( data, this);
 
         FragmentManager manager = getActivity().getSupportFragmentManager();
