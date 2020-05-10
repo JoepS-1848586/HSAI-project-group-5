@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,29 +17,26 @@ import androidx.navigation.Navigation;
 import com.example.hsai_project.R;
 
 public class ProductsFragment extends Fragment {
-
+    private EditText text;
 
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_products, container, false);
 
-        String[] categories = {"Laptops & Computers", "Telefoons", "Huishouden", "Gaming & Entertainment"};
+        final String[] categories = {"Laptops & Computers", "Telefoons", "Huishouden", "Gaming & Entertainment"};
         ListView categorieView = (ListView)root.findViewById(R.id.productCategoriesList);
 
         ArrayAdapter<String>categoriesAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, categories);
         categorieView.setAdapter(categoriesAdapter);
+        String title = text.
 
         categorieView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(position == 0){
-                    ProductCategorieFragment chosenCategorie = new ProductCategorieFragment();
-                    Navigation.findNavController(root).navigate(R.id.product_categorie_sub);
-
-                    /*FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    transaction.addToBackStack(null);
-                    transaction.replace(R.id.product_categorie, chosenCategorie);
-                    transaction.commit();*/
+                    ProductsFragmentDirections.ActionBottomNavProductsToProductCategorieSub action = ProductsFragmentDirections.actionBottomNavProductsToProductCategorieSub("Hello World");
+                    action.setChosenCategory(categories[0]);
+                    Navigation.findNavController(root).navigate(action);
                 }
             }
         });

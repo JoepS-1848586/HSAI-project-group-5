@@ -3,12 +3,16 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/product_categorie_sub"
-        android:layout_width="99dp"
-        android:layout_height="118dp"
-        android:text="test"
-        android:textSize="20sp" />
+    <GridView
+        android:id="@+id/product_categorie_sub_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnWidth="160dp"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:numColumns="2"
+        android:stretchMode="spacingWidthUniform"
+        android:verticalSpacing="24dp" />
 
 
 </LinearLayout>

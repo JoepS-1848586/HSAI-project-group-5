@@ -12,11 +12,15 @@ public class ProductEntity {
     private String productName;
     private int Price;
     private String Store;
+    private String Image;
+    private boolean isWishlist;
 
-    public ProductEntity(String productName, int Price, String Store) {
+    public ProductEntity(String productName, int Price, String Store, String Image, boolean isWishlist) {
         this.productName = productName;
         this.Price = Price;
         this.Store = Store;
+        this.Image = Image;
+        this.isWishlist = isWishlist;
     }
 
     public void setId(int id) {
@@ -49,5 +53,21 @@ public class ProductEntity {
 
     public String getStore() {
         return Store;
+    }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String image) {
+        Image = image;
+    }
+
+    public boolean isWishlist() {
+        return isWishlist;
+    }
+
+    public void setWishlist(boolean wishlist) {
+        isWishlist = wishlist;
     }
 }

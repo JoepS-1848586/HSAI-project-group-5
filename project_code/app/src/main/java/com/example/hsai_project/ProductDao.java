@@ -19,7 +19,11 @@ public interface ProductDao {
     @Delete
     void delete(ProductEntity product);
 
-    @Query("SELECT * FROM product_table ORDER BY Price DESC")
+    @Query("SELECT * FROM product_table ORDER BY Price ASC")
     LiveData<List<ProductEntity>>getAllProducts();
+
+    @Query("SELECT * FROM product_table WHERE isWishlist == 1 ORDER BY Price DESC")
+    LiveData<List<ProductEntity>>getAllWishlistProducts();
+
 
 }
