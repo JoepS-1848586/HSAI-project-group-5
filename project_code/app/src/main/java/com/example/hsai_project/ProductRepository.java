@@ -12,11 +12,16 @@ public class ProductRepository {
     private LiveData<List<ProductEntity>>allProducts;
     private LiveData<List<ProductEntity>>allWishlistProducts;
 
+    private LiveData<List<ProductEntity>> topviewed;
+
     public ProductRepository(Application application){
         ProductDatabase database = ProductDatabase.getInstance(application);
         productDao = database.productDao();
         allProducts = productDao.getAllProducts();
         allWishlistProducts = productDao.getAllWishlistProducts();
+
+        // explore
+        topviewed = productDao.getTopViewed();
     }
 
     public void insert(ProductEntity productEntity){
@@ -38,6 +43,8 @@ public class ProductRepository {
     public LiveData<List<ProductEntity>> getAllWishlistProducts() {
         return allWishlistProducts;
     }
+
+    public LiveData<List<ProductEntity>> getTopviewed(){ return topviewed;}
 
 
     private static class InsertProductAsyncTask extends AsyncTask<ProductEntity, Void, Void>{

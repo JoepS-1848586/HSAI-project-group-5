@@ -15,12 +15,14 @@ public class ProductListViewModel extends AndroidViewModel {
     private MutableLiveData<String>searchQuery = new MutableLiveData<String>();
     private LiveData<List<ProductEntity>>allProducts;
     private LiveData<List<ProductEntity>>allWishlistProducts;/*= Transformations.switchMap(searchQuery, query -> {repository.getAllProducts(query)});*/
+    private LiveData<List<ProductEntity>> topviewed;
 
     public ProductListViewModel(@NonNull Application application) {
         super(application);
         repository = new ProductRepository(application);
         allProducts = repository.getAllProducts();
         allWishlistProducts = repository.getAllWishlistProducts();
+        topviewed = repository.getTopviewed();
     }
 
     public void insert(ProductEntity productEntity){
@@ -41,5 +43,9 @@ public class ProductListViewModel extends AndroidViewModel {
 
     public LiveData<List<ProductEntity>>getAllWishlistProducts(){
         return allWishlistProducts;
+    }
+
+    public LiveData<List<ProductEntity>> getTopviewed() {
+        return topviewed;
     }
 }

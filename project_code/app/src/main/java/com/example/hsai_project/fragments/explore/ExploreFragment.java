@@ -28,16 +28,15 @@ public class ExploreFragment extends Fragment {
     }
 
     private void createFragments(){
-        ProductDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), ProductDatabase.class, "product_table")
-                .allowMainThreadQueries().build();
+        ProductDatabase db = ProductDatabase.getInstance(getContext());
 
-        ExploreScrollFragment frag = new ExploreScrollFragment( db.productDao().getTopViewed().getValue(), "Meest bekeken");
+        ExploreScrollFragment frag = new ExploreScrollFragment( db.productDao().getTopViewed(), "Meest bekeken");
         addFragment(frag);
 
-        frag = new ExploreScrollFragment(db.productDao().getTopBought().getValue(),"Meest gekocht");
+        frag = new ExploreScrollFragment(db.productDao().getTopBought(),"Meest gekocht");
         addFragment(frag);
 
-        frag = new ExploreScrollFragment(db.productDao().get10Cat("Laptop").getValue(), "Top 10 laptops");
+        frag = new ExploreScrollFragment(db.productDao().get10Cat("Laptop"), "Top 10 laptops");
         addFragment(frag);
     }
 

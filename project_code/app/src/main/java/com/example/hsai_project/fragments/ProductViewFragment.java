@@ -1,8 +1,12 @@
 package com.example.hsai_project.fragments;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 
 import android.view.LayoutInflater;
@@ -11,21 +15,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.hsai_project.ProductDao;
 import com.example.hsai_project.ProductDatabase;
 import com.example.hsai_project.ProductEntity;
 import com.example.hsai_project.R;
 import com.example.hsai_project.WishlistEntity;
 
+import com.bumptech.glide.Glide;
 
 public class ProductViewFragment extends Fragment {
 
     private boolean m_fav = false;
     private ProductEntity m_product;
 
-
-    public ProductViewFragment() {
-        m_product = new ProductEntity("empty product name", 0, "empty product storename", "emptyimage",  "empty cat");
-    }
 
     public ProductViewFragment(ProductEntity product){
         m_product = product;
@@ -56,6 +58,8 @@ public class ProductViewFragment extends Fragment {
         TextView price = (TextView) root.findViewById(R.id.product_price);
         price.setText(String.valueOf(m_product.getPrice()));
 
+        ImageView image = (ImageView) root.findViewById(R.id.product_image);
+        Glide.with(image.getContext()).load(m_product.getImage()).into(image);
 
         return root;
     }
@@ -81,17 +85,40 @@ public class ProductViewFragment extends Fragment {
 
 
     private void addToWishlist(){
-        ProductDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), ProductDatabase.class, "product_table")
-                .allowMainThreadQueries().build();
-
-        db.productDao().insertWishlist(new WishlistEntity(m_product.getId()));
+        new UpdateWishlistAsyncTask(ProductDatabase.getInstance(getContext()).productDao()).execute(new WishlistEntity(m_product.getId()));
     }
 
     private void removeFromWishlist(){
-        ProductDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), ProductDatabase.class, "product_table")
-                .allowMainThreadQueries().build();
-
-        db.productDao().deleteWishlist(m_product.getId());
+       new DeleteWishlistAsyncTask(ProductDatabase.getInstance(getContext()).productDao()).execute(m_product.getId());
     }
+
+    private static class UpdateWishlistAsyncTask extends AsyncTask<WishlistEntity, Void, Void>{
+        private ProductDao productDao;
+        private UpdateWishlistAsyncTask(ProductDao productDao){
+            this.productDao = productDao;
+        }
+        @Override
+        protected Void doInBackground(WishlistEntity... entities) {
+            for(int i = 0; i < entities.length;++i) {
+                productDao.insertWishlist(entities[i]);
+            }
+            return null;
+        }
+    }
+
+    private static class DeleteWishlistAsyncTask extends AsyncTask<Integer, Void, Void>{
+        private ProductDao productDao;
+        private DeleteWishlistAsyncTask(ProductDao productDao){
+            this.productDao = productDao;
+        }
+        @Override
+        protected Void doInBackground(Integer... ids) {
+            for(int i = 0; i < ids.length;++i) {
+                productDao.deleteWishlist(ids[i]);
+            }
+            return null;
+        }
+    }
+
 
 }
