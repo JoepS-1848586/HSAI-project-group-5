@@ -13,16 +13,19 @@ public class ProductEntity {
     private int Price;
     private String Store;
     private String categorie;
+    private String Image;
+    private boolean isWishlist;
 
     // explore data
     private int timesviewed = 0;
     private int timesbought = 0;
 
-    public ProductEntity(String productName, int Price, String Store, String categorie) {
+    public ProductEntity(String productName, int Price, String Store, boolean isWishlist, String categorie) {
         this.productName = productName;
         this.Price = Price;
         this.Store = Store;
         this.categorie = categorie;
+        this.isWishlist = isWishlist;
     }
 
     public void setId(int id) {
@@ -82,4 +85,19 @@ public class ProductEntity {
     public void addView() { timesviewed+=1;}
     public void addBuy() { timesbought += 1;}
 
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String image) {
+        Image = image;
+    }
+
+    public boolean isWishlist() {
+        return isWishlist;
+    }
+
+    public void setWishlist(boolean wishlist) {
+        isWishlist = wishlist;
+    }
 }

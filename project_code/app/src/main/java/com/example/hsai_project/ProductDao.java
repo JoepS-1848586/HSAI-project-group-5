@@ -22,7 +22,7 @@ public interface ProductDao {
     @Delete
     void delete(ProductEntity product);
 
-    @Query("SELECT * FROM product_table ORDER BY Price DESC")
+    @Query("SELECT * FROM product_table ORDER BY Price ASC")
     LiveData<List<ProductEntity>>getAllProducts();
 
     // shoppingcart table
@@ -53,4 +53,10 @@ public interface ProductDao {
 
     @Query("SELECT * FROM product_table WHERE categorie = :cat LIMIT 10")
     LiveData<List<ProductEntity>> get10Cat(String cat);
+
+    // wishlist
+    @Query("SELECT * FROM product_table WHERE isWishlist == 1 ORDER BY Price DESC")
+    LiveData<List<ProductEntity>>getAllWishlistProducts();
+
+
 }

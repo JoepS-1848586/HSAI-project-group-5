@@ -15,13 +15,28 @@
         android:id="@+id/bottom_nav_products"
         android:name="com.example.hsai_project.fragments.ProductsFragment"
         android:label="@string/title_products"
-        tools:layout="@layout/fragment_products" />
+        tools:layout="@layout/fragment_products" >
+        <action
+            android:id="@+id/action_bottom_nav_products_to_product_categorie_sub"
+            app:destination="@id/product_categorie_sub" />
+    </fragment>
 
     <fragment
         android:id="@+id/product_categorie_sub"
         android:name="com.example.hsai_project.fragments.ProductCategorieFragment"
         android:label="@string/title_products"
-        tools:layout="@layout/fragment_product_subcategorie" />
+        tools:layout="@layout/fragment_product_subcategorie" >
+        <argument
+            android:name="chosenCategory"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/product_list"
+        android:name="com.example.hsai_project.fragments.ProductListFragment"
+        android:label="@string/title_products"
+        tools:layout="@layout/product_list" />
+
 
     <fragment
         android:id="@+id/bottom_nav_shops"
