@@ -43,4 +43,14 @@ public interface ProductDao {
     void updateWishlist(WishlistEntity product);
     @Query("DELETE FROM wishlist_table WHERE wishlist_table.id = :id")
     void deleteWishlist(int id);
+
+    // explore
+    @Query("SELECT * FROM product_table ORDER BY timesviewed LIMIT 10")
+    LiveData<List<ProductEntity>> getTopViewed();
+
+    @Query("SELECT * FROM product_table ORDER BY timesbought LIMIT 10")
+    LiveData<List<ProductEntity>> getTopBought();
+
+    @Query("SELECT * FROM product_table WHERE categorie = :cat LIMIT 10")
+    LiveData<List<ProductEntity>> get10Cat(String cat);
 }

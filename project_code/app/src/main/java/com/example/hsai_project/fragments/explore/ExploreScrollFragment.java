@@ -1,23 +1,35 @@
-package com.example.hsai_project.fragments;
+package com.example.hsai_project.fragments.explore;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LiveData;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.hsai_project.ProductEntity;
 import com.example.hsai_project.R;
+import com.example.hsai_project.fragments.ProductViewFragment;
+
+import java.util.List;
 
 
 public class ExploreScrollFragment extends Fragment {
 
+    private LiveData<List<ProductEntity>> m_items;
+    private String m_catname;
 
-    public ExploreScrollFragment() {
-        // Required empty public constructor
+
+    public ExploreScrollFragment(LiveData<List<ProductEntity>> items, String catname){
+        m_items = items;
+        m_catname = catname;
     }
 
     @Override
@@ -49,6 +61,23 @@ public class ExploreScrollFragment extends Fragment {
             }
         });
 
+        TextView cat = (TextView) root.findViewById(R.id.explore_scroll_cat);
+        cat.setText(m_catname);
+
+        addFrags();
+
         return root;
+    }
+
+    private void addFrags(){
+        if(m_items.getValue() == null)
+            return;
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        for(int i = 0 ;i < m_items.getValue().size();++i) {
+            ProductViewFragment frag = new ProductViewFragment(m_items.getValue().get(i));
+            transaction.add(R.id.explore_scroll_fragmentcontainer, frag);
+        }
+        transaction.commit();
     }
 }

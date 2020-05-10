@@ -4,34 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ExploreFragment">
+    tools:context=".fragments.explore.ExploreFragment">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-
-
-        <fragment
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/nav_host_fragment"
-            android:name="com.example.hsai_project.fragments.ExploreScrollFragment"
-            android:layout_marginBottom="20dp"></fragment>
-
-        <fragment
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/nav_host_fragment2"
-            android:name="com.example.hsai_project.fragments.ExploreScrollFragment"
-            android:layout_marginBottom="20dp"></fragment>
-
-        <fragment
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/nav_host_fragment3"
-            android:name="com.example.hsai_project.fragments.ExploreScrollFragment"
-            android:layout_marginBottom="20dp"></fragment>
+        android:orientation="vertical"
+        android:id="@+id/explore_fragmentcontainer">
 
 
     </LinearLayout>

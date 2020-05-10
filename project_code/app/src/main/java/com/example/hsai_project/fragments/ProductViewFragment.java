@@ -24,7 +24,7 @@ public class ProductViewFragment extends Fragment {
 
 
     public ProductViewFragment() {
-        m_product = new ProductEntity("empty product name", 0, "empty product storename");
+        m_product = new ProductEntity("empty product name", 0, "empty product storename", "empty cat");
     }
 
     public ProductViewFragment(ProductEntity product){

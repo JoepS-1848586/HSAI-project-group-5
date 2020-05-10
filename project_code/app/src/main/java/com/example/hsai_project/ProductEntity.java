@@ -12,11 +12,17 @@ public class ProductEntity {
     private String productName;
     private int Price;
     private String Store;
+    private String categorie;
 
-    public ProductEntity(String productName, int Price, String Store) {
+    // explore data
+    private int timesviewed = 0;
+    private int timesbought = 0;
+
+    public ProductEntity(String productName, int Price, String Store, String categorie) {
         this.productName = productName;
         this.Price = Price;
         this.Store = Store;
+        this.categorie = categorie;
     }
 
     public void setId(int id) {
@@ -50,4 +56,30 @@ public class ProductEntity {
     public String getStore() {
         return Store;
     }
+
+    public String getCategorie() { return this.categorie;}
+
+    public int getTimesbought() {
+        return timesbought;
+    }
+
+    public int getTimesviewed() {
+        return timesviewed;
+    }
+
+    public void setCategorie(String categorie) {
+        this.categorie = categorie;
+    }
+
+    public void setTimesbought(int timesbought) {
+        this.timesbought = timesbought;
+    }
+
+    public void setTimesviewed(int timesviewed) {
+        this.timesviewed = timesviewed;
+    }
+
+    public void addView() { timesviewed+=1;}
+    public void addBuy() { timesbought += 1;}
+
 }
