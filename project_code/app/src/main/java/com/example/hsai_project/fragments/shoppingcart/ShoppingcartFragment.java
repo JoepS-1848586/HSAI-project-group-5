@@ -18,6 +18,7 @@ import androidx.room.Room;
 
 import com.example.hsai_project.ProductDatabase;
 import com.example.hsai_project.R;
+import com.example.hsai_project.ReservationEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,12 @@ public class ShoppingcartFragment extends Fragment {
                 }
             });
             emptytext.setVisibility(View.INVISIBLE);
+            reservation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    reservate();
+                }
+            });
         }
         else {
             emptytext.setVisibility(View.VISIBLE);
@@ -123,6 +130,11 @@ public class ShoppingcartFragment extends Fragment {
 
 
     private void reservate(){
-
+        ProductDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), ProductDatabase.class, "reservation_table")
+                .allowMainThreadQueries().build();
+        for(int i = 0; i < m_data.size();++i){
+            ShoppingcartItem item = m_data.get(i);
+            db.productDao().insertReservation(new ReservationEntity(item.getId(), item.getAmount()));
+        }
     }
 }
