@@ -28,7 +28,6 @@ public class ProductsFragment extends Fragment {
 
         ArrayAdapter<String>categoriesAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, categories);
         categorieView.setAdapter(categoriesAdapter);
-        String title = text.
 
         categorieView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

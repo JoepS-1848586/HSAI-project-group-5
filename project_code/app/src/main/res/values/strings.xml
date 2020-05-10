@@ -21,6 +21,9 @@
     <string name="reservation_cancel_confirm">Annuleer</string>
     <string name="reservation_cancel_stop">Stoppen</string>
     <string name="reservation_cancel_toast">Resevatie geannuleerd</string>
+    <string name="reservation_empty">Nog geen reservaties</string>
+
+    <string name="shoppingcart_empty">Geen items in je winkelwagen</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

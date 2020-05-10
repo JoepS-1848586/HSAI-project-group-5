@@ -24,7 +24,7 @@ public class ProductViewFragment extends Fragment {
 
 
     public ProductViewFragment() {
-        m_product = new ProductEntity("empty product name", 0, "empty product storename", "empty cat");
+        m_product = new ProductEntity("empty product name", 0, "empty product storename", "emptyimage",  "empty cat");
     }
 
     public ProductViewFragment(ProductEntity product){
@@ -81,14 +81,14 @@ public class ProductViewFragment extends Fragment {
 
 
     private void addToWishlist(){
-        ProductDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), ProductDatabase.class, "shoppincart_table")
+        ProductDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), ProductDatabase.class, "product_table")
                 .allowMainThreadQueries().build();
 
         db.productDao().insertWishlist(new WishlistEntity(m_product.getId()));
     }
 
     private void removeFromWishlist(){
-        ProductDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), ProductDatabase.class, "shoppincart_table")
+        ProductDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), ProductDatabase.class, "product_table")
                 .allowMainThreadQueries().build();
 
         db.productDao().deleteWishlist(m_product.getId());

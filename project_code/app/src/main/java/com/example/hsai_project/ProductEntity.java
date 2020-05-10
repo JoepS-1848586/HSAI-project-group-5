@@ -14,18 +14,18 @@ public class ProductEntity {
     private String Store;
     private String categorie;
     private String Image;
-    private boolean isWishlist;
+    private boolean isWishlist = false;
 
     // explore data
     private int timesviewed = 0;
     private int timesbought = 0;
 
-    public ProductEntity(String productName, int Price, String Store, boolean isWishlist, String categorie) {
+    public ProductEntity(String productName, int Price, String Store, String Image, String categorie) {
         this.productName = productName;
         this.Price = Price;
         this.Store = Store;
         this.categorie = categorie;
-        this.isWishlist = isWishlist;
+        this.Image = Image;
     }
 
     public void setId(int id) {

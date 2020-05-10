@@ -7,6 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.hsai_project.fragments.reservations.ReservationItem;
 import com.example.hsai_project.fragments.shoppingcart.ShoppingcartItem;
 
 import java.util.List;
@@ -36,6 +37,23 @@ public interface ProductDao {
     @Query("SELECT x.id,x.productName,x.Price,x.Store,y.amount FROM product_table as x,shoppincart_table as y WHERE x.id = y.id")
     LiveData<List<ShoppingcartItem>> getAllShoppingcartProducts();
 
+    @Query("DELETE FROM shoppincart_table WHERE id = :id")
+    void deleteFromShoppingCart(int id);
+
+    // reservations table
+    @Insert
+    void insertReservation(ReservationEntity product);
+    @Update
+    void updateReservation(ReservationEntity product);
+    @Delete
+    void deleteReservation(ReservationEntity product);
+
+    @Query("SELECT x.id,x.productName,x.Price,x.Store,y.amount FROM product_table as x,reservation_table as y WHERE x.id = y.id")
+    LiveData<List<ReservationItem>> getAllReservations();
+
+    @Query("DELETE FROM reservation_table WHERE id = :id")
+    void deleteFromReservations(int id);
+
     // wishlist table
     @Insert
     void insertWishlist(WishlistEntity product);
@@ -51,7 +69,7 @@ public interface ProductDao {
     @Query("SELECT * FROM product_table ORDER BY timesbought LIMIT 10")
     LiveData<List<ProductEntity>> getTopBought();
 
-    @Query("SELECT * FROM product_table WHERE categorie = :cat LIMIT 10")
+    @Query("SELECT * FROM product_table WHERE categorie = :cat ORDER BY timesviewed LIMIT 10")
     LiveData<List<ProductEntity>> get10Cat(String cat);
 
     // wishlist

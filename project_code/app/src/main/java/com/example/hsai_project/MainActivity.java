@@ -80,6 +80,6 @@ public class MainActivity extends AppCompatActivity {
         ProductDatabase db = Room.databaseBuilder(getApplicationContext(), ProductDatabase.class, "product_table")
                 .allowMainThreadQueries().build();
 
-        db.productDao().update(new ProductEntity("testname", 100, "teststore", "empty cat"));
+
     }
 }

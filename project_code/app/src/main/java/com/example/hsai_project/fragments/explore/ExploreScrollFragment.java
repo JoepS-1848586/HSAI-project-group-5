@@ -23,11 +23,11 @@ import java.util.List;
 
 public class ExploreScrollFragment extends Fragment {
 
-    private LiveData<List<ProductEntity>> m_items;
+    private List<ProductEntity> m_items;
     private String m_catname;
 
 
-    public ExploreScrollFragment(LiveData<List<ProductEntity>> items, String catname){
+    public ExploreScrollFragment(List<ProductEntity> items, String catname){
         m_items = items;
         m_catname = catname;
     }
@@ -70,12 +70,12 @@ public class ExploreScrollFragment extends Fragment {
     }
 
     private void addFrags(){
-        if(m_items.getValue() == null)
+        if(m_items == null)
             return;
         FragmentManager manager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        for(int i = 0 ;i < m_items.getValue().size();++i) {
-            ProductViewFragment frag = new ProductViewFragment(m_items.getValue().get(i));
+        for(int i = 0 ;i < m_items.size();++i) {
+            ProductViewFragment frag = new ProductViewFragment(m_items.get(i));
             transaction.add(R.id.explore_scroll_fragmentcontainer, frag);
         }
         transaction.commit();

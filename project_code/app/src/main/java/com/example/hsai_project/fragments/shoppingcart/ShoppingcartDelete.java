@@ -62,10 +62,13 @@ public class ShoppingcartDelete extends AppCompatActivity {
         ProductDatabase db = Room.databaseBuilder(getApplicationContext(), ProductDatabase.class, "shoppincart_table")
                 .allowMainThreadQueries().build();
 
-        //m_data = db.productDao().getAllShoppingcartProducts();
+        List<ShoppingcartItem> data = db.productDao().getAllShoppingcartProducts().getValue();
+        if(m_data == null)
+            return;
 
-        addFragment(new ShoppingcartItem(1,"testprod", 150, "testStore", 2));
-        addFragment(new ShoppingcartItem(2,"testprod2", 300, "testStore", 4));
+        for(int i = 0; i < m_data.size();++i){
+            addFragment(data.get(i));
+        }
 
     }
 

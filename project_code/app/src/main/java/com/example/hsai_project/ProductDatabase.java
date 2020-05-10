@@ -39,10 +39,10 @@ public abstract class ProductDatabase extends RoomDatabase {
         }
         @Override
         protected Void doInBackground(Void... voids) {
-            productDao.insert(new ProductEntity("Laptop", 297, "MediaMarkt", "https://i.redd.it/qnw9dn0rvau31.png", true));
-            productDao.insert(new ProductEntity("PC", 420, "MediaMarkt", "https://i.redd.it/qnw9dn0rvau31.png", false));
-            productDao.insert(new ProductEntity("Laptop_2", 555, "MediaMarkt", "https://i.redd.it/qnw9dn0rvau31.png", true));
-            productDao.insert(new ProductEntity("MacBook", 555, "MediaMarkt", "https://i.redd.it/qnw9dn0rvau31.png", false));
+            productDao.insert(new ProductEntity("Laptop", 297, "MediaMarkt", "https://i.redd.it/qnw9dn0rvau31.png", "Laptop"));
+            productDao.insert(new ProductEntity("PC", 420, "MediaMarkt", "https://i.redd.it/qnw9dn0rvau31.png", "PC"));
+            productDao.insert(new ProductEntity("Laptop_2", 555, "MediaMarkt", "https://i.redd.it/qnw9dn0rvau31.png", "Laptop"));
+            productDao.insert(new ProductEntity("MacBook", 555, "MediaMarkt", "https://i.redd.it/qnw9dn0rvau31.png", "Laptop"));
             return null;
         }
     }

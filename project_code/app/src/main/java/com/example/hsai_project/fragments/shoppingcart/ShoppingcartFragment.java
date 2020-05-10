@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,15 +33,26 @@ public class ShoppingcartFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_shoppingcart, container, false);
 
-        Button deletebutton = root.findViewById(R.id.shoppingcart_deletebutton);
-        deletebutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ShoppingcartDelete.class);
-                startActivityForResult(intent, REQUEST_CODE_DELETE_ITEMS);
-            }
-        });
         getEntries();
+        Button deletebutton = root.findViewById(R.id.shoppingcart_deletebutton);
+        Button reservation = root.findViewById(R.id.shoppingcart_reservate);
+        TextView emptytext = (TextView) root.findViewById(R.id.shoppingcart_empty);
+        if(m_data != null && m_data.size() > 0) {
+            deletebutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), ShoppingcartDelete.class);
+                    startActivityForResult(intent, REQUEST_CODE_DELETE_ITEMS);
+                }
+            });
+            emptytext.setVisibility(View.INVISIBLE);
+        }
+        else {
+            emptytext.setVisibility(View.VISIBLE);
+            deletebutton.setVisibility(View.INVISIBLE);
+            reservation.setVisibility(View.INVISIBLE);
+
+        }
 
         return root;
     }
@@ -49,11 +61,9 @@ public class ShoppingcartFragment extends Fragment {
         ProductDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), ProductDatabase.class, "shoppincart_table")
                 .allowMainThreadQueries().build();
 
-        //m_data = db.productDao().getAllShoppingcartProducts();
-
-        m_data = new ArrayList<ShoppingcartItem>();
-        m_data.add(new ShoppingcartItem(1,"testprod", 150, "testStore", 2));
-        m_data.add(new ShoppingcartItem(2,"testprod2", 300, "testStore", 4));
+        m_data = db.productDao().getAllShoppingcartProducts().getValue();
+        if(m_data == null)
+            return;
 
         for(int i = 0; i < m_data.size();++i){
             addFragment(m_data.get(i));
@@ -96,7 +106,10 @@ public class ShoppingcartFragment extends Fragment {
     }
 
     private void removeItem(int index){
-        // TODO remove item out of database
+        ProductDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), ProductDatabase.class, "shoppincart_table")
+                .allowMainThreadQueries().build();
+        db.productDao().deleteFromShoppingCart(m_data.get(index).getId());
+
         m_data.remove(index);
 
         ShoppingcartItemFragment item = m_frags.remove(index);
@@ -109,4 +122,7 @@ public class ShoppingcartFragment extends Fragment {
     }
 
 
+    private void reservate(){
+
+    }
 }

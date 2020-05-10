@@ -18,8 +18,6 @@ import com.example.hsai_project.R;
 
 public class ExploreFragment extends Fragment {
 
-    private String[] categories = { "Recent bekeken", "Populair", "Meest gekocht", "Laptops"};
-
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_explore, container, false);
@@ -30,16 +28,16 @@ public class ExploreFragment extends Fragment {
     }
 
     private void createFragments(){
-        ProductDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), ProductDatabase.class, "shoppincart_table")
+        ProductDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), ProductDatabase.class, "product_table")
                 .allowMainThreadQueries().build();
 
-        ExploreScrollFragment frag = new ExploreScrollFragment( db.productDao().getTopViewed(), "Meest bekeken");
+        ExploreScrollFragment frag = new ExploreScrollFragment( db.productDao().getTopViewed().getValue(), "Meest bekeken");
         addFragment(frag);
 
-        frag = new ExploreScrollFragment(db.productDao().getTopBought(),"Meest gekocht");
+        frag = new ExploreScrollFragment(db.productDao().getTopBought().getValue(),"Meest gekocht");
         addFragment(frag);
 
-        frag = new ExploreScrollFragment(db.productDao().get10Cat("Laptop"), "Laptop");
+        frag = new ExploreScrollFragment(db.productDao().get10Cat("Laptop").getValue(), "Top 10 laptops");
         addFragment(frag);
     }
 
