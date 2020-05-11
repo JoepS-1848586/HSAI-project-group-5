@@ -26,41 +26,13 @@ public interface ProductDao {
     @Query("SELECT * FROM product_table ORDER BY Price ASC")
     LiveData<List<ProductEntity>>getAllProducts();
 
-    // shoppingcart table
-    @Insert
-    void insertShoppingcart(ShoppingcartEntity product);
-    @Update
-    void updateShoppingcart(ShoppingcartEntity product);
-    @Delete
-    void deleteShoppingcart(ShoppingcartEntity product);
 
-    @Query("SELECT x.id,x.productName,x.Price,x.Store,y.amount FROM product_table as x,shoppincart_table as y WHERE x.id = y.id")
+    // shoppingcart
+    @Query("SELECT x.id,x.productName,x.Price,x.Store, x.inCart as amount FROM product_table as x WHERE x.inCart > 0")
     LiveData<List<ShoppingcartItem>> getAllShoppingcartProducts();
 
-    @Query("DELETE FROM shoppincart_table WHERE id = :id")
+    @Query("UPDATE product_table SET inCart = 0 WHERE id = :id")
     void deleteFromShoppingCart(int id);
-
-    // reservations table
-    @Insert
-    void insertReservation(ReservationEntity product);
-    @Update
-    void updateReservation(ReservationEntity product);
-    @Delete
-    void deleteReservation(ReservationEntity product);
-
-    @Query("SELECT x.id,x.productName,x.Price,x.Store,y.amount FROM product_table as x,reservation_table as y WHERE x.id = y.id")
-    LiveData<List<ReservationItem>> getAllReservations();
-
-    @Query("DELETE FROM reservation_table WHERE id = :id")
-    void deleteFromReservations(int id);
-
-    // wishlist table
-    @Insert
-    void insertWishlist(WishlistEntity product);
-    @Update
-    void updateWishlist(WishlistEntity product);
-    @Query("DELETE FROM wishlist_table WHERE wishlist_table.id = :id")
-    void deleteWishlist(int id);
 
     // explore
     @Query("SELECT * FROM product_table ORDER BY timesviewed LIMIT 10")
@@ -72,9 +44,21 @@ public interface ProductDao {
     @Query("SELECT * FROM product_table WHERE categorie = :cat ORDER BY timesviewed LIMIT 10")
     LiveData<List<ProductEntity>> get10Cat(String cat);
 
+    // reservation
+    @Query("SELECT x.id,x.productName,x.Price,x.Store, x.reservated as amount FROM product_table as x WHERE x.reservated > 0")
+    LiveData<List<ReservationItem>> getAllReservations();
+    @Query("UPDATE product_table SET reservated = :amount WHERE id = :id")
+    void insertReservation(int id, int amount);
+
     // wishlist
     @Query("SELECT * FROM product_table WHERE isWishlist == 1 ORDER BY Price DESC")
     LiveData<List<ProductEntity>>getAllWishlistProducts();
+
+    @Query("UPDATE product_table SET isWishlist = 1 WHERE id =:id")
+    void addToWishlist(int id);
+
+    @Query("UPDATE product_table SET isWishlist = 0 WHERE id =:id")
+    void removeFromWishlist(int id);
 
 
 }

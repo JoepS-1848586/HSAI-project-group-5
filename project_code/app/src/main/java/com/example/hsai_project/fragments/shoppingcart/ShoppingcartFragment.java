@@ -2,6 +2,7 @@ package com.example.hsai_project.fragments.shoppingcart;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +15,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.room.Room;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
+import com.example.hsai_project.ProductDao;
 import com.example.hsai_project.ProductDatabase;
 import com.example.hsai_project.R;
-import com.example.hsai_project.ReservationEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,18 +29,37 @@ public class ShoppingcartFragment extends Fragment {
 
     private static int REQUEST_CODE_DELETE_ITEMS = 0;
 
-    List<ShoppingcartItem> m_data;
+    LiveData<List<ShoppingcartItem>> m_data;
     List<ShoppingcartItemFragment> m_frags = new ArrayList<ShoppingcartItemFragment>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_shoppingcart, container, false);
 
-        getEntries();
+        getEntries(root);
+
+        return root;
+    }
+
+    public void getEntries(final View root){
+        ProductDatabase db = ProductDatabase.getInstance(getContext());
+
+        m_data = db.productDao().getAllShoppingcartProducts();
+        m_data.observe(getViewLifecycleOwner(), new Observer<List<ShoppingcartItem>>() {
+            @Override
+            public void onChanged(List<ShoppingcartItem> productEntities) {
+                addFrags(root);
+                setButtons(root);
+            }
+        });
+    }
+    private void setButtons(final View root){
+        if(m_data.getValue() == null)
+            return;
         Button deletebutton = root.findViewById(R.id.shoppingcart_deletebutton);
         Button reservation = root.findViewById(R.id.shoppingcart_reservate);
         TextView emptytext = (TextView) root.findViewById(R.id.shoppingcart_empty);
-        if(m_data != null && m_data.size() > 0) {
+        if(m_data.getValue().size() > 0) {
             deletebutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -61,31 +82,25 @@ public class ShoppingcartFragment extends Fragment {
 
         }
 
-        return root;
     }
 
-    public void getEntries(){
-        ProductDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), ProductDatabase.class, "shoppincart_table")
-                .allowMainThreadQueries().build();
-
-        m_data = db.productDao().getAllShoppingcartProducts().getValue();
-        if(m_data == null)
+    public void addFrags(View root){
+        if(m_data.getValue() == null)
             return;
 
-        for(int i = 0; i < m_data.size();++i){
-            addFragment(m_data.get(i));
+        for(Fragment frag: m_frags) {
+            getChildFragmentManager().beginTransaction().remove(frag).commit();
         }
-    }
+        for(int i = 0; i < m_data.getValue().size();++i) {
+            ShoppingcartItemFragment frag = new ShoppingcartItemFragment(m_data.getValue().get(i));
 
-    public void addFragment(ShoppingcartItem data){
-        ShoppingcartItemFragment frag = new ShoppingcartItemFragment( data);
+            FragmentManager manager = getChildFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
 
-        FragmentManager manager = getActivity().getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-
-        transaction.add(R.id.shoppincart_fragmentcontainer, frag);
-        transaction.commit();
-        m_frags.add(frag);
+            transaction.add(R.id.shoppincart_fragmentcontainer, frag);
+            transaction.commit();
+            m_frags.add(frag);
+        }
     }
 
     @Override
@@ -95,16 +110,19 @@ public class ShoppingcartFragment extends Fragment {
             if(resultCode == Activity.RESULT_OK){
                 int[] d = data.getIntArrayExtra(ShoppingcartDelete.EXTRA_REMOVED_ITEM_IDS);
                 deleteItems(d);
-                Toast.makeText(getActivity(), "Items removed", Toast.LENGTH_SHORT).show();
+                if(d.length > 0)
+                    Toast.makeText(getActivity(), "Items removed", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
     private void deleteItems(int[] itemids){
+        if(m_data.getValue() == null)
+            return;
         for(int i = 0; i < itemids.length;++i){
             int id = itemids[i];
-            for(int j =0; j < m_data.size();++j){
-                if(m_data.get(j).getId() == id){
+            for(int j =0; j < m_data.getValue().size();++j){
+                if(m_data.getValue().get(j).getId() == id){
                     removeItem(j);
                     break;
                 }
@@ -113,15 +131,17 @@ public class ShoppingcartFragment extends Fragment {
     }
 
     private void removeItem(int index){
-        ProductDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), ProductDatabase.class, "shoppincart_table")
-                .allowMainThreadQueries().build();
-        db.productDao().deleteFromShoppingCart(m_data.get(index).getId());
+        if(m_data.getValue() == null)
+            return;
 
-        m_data.remove(index);
+        ProductDatabase db = ProductDatabase.getInstance(getContext());
+        new removeReservationAsyncTask(db.productDao()).execute(m_data.getValue().get(index));
+
+        m_data.getValue().remove(index);
 
         ShoppingcartItemFragment item = m_frags.remove(index);
 
-        FragmentManager manager = getActivity().getSupportFragmentManager();
+        FragmentManager manager = getChildFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
 
         transaction.remove(item);
@@ -130,11 +150,48 @@ public class ShoppingcartFragment extends Fragment {
 
 
     private void reservate(){
-        ProductDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), ProductDatabase.class, "reservation_table")
-                .allowMainThreadQueries().build();
-        for(int i = 0; i < m_data.size();++i){
-            ShoppingcartItem item = m_data.get(i);
-            db.productDao().insertReservation(new ReservationEntity(item.getId(), item.getAmount()));
+        if(m_data.getValue() == null)
+            return;
+        ProductDatabase db = ProductDatabase.getInstance(getContext());
+        for(int i = 0; i < m_data.getValue().size();++i){
+            ShoppingcartItem item = m_data.getValue().get(i);
+            new addReservationAsyncTask(db.productDao()).execute(item);
+        }
+
+        if(m_data.getValue() != null) {
+            for (int i = 0; i < m_data.getValue().size(); ++i) {
+                removeItem(i);
+            }
+        }
+
+        Toast.makeText(getContext(),"Items gereserveerd", Toast.LENGTH_LONG).show();
+    }
+
+    private static class removeReservationAsyncTask extends AsyncTask<ShoppingcartItem, Void, Void> {
+        private ProductDao productDao;
+        private removeReservationAsyncTask(ProductDao productDao){
+            this.productDao = productDao;
+        }
+        @Override
+        protected Void doInBackground(ShoppingcartItem... entities) {
+            for(int i = 0; i < entities.length;++i) {
+                productDao.deleteFromShoppingCart(entities[i].getId());
+            }
+            return null;
+        }
+    }
+
+    private static class addReservationAsyncTask extends AsyncTask<ShoppingcartItem, Void, Void> {
+        private ProductDao productDao;
+        private addReservationAsyncTask(ProductDao productDao){
+            this.productDao = productDao;
+        }
+        @Override
+        protected Void doInBackground(ShoppingcartItem... entities) {
+            for(int i = 0; i < entities.length;++i) {
+                productDao.insertReservation(entities[i].getId(), entities[i].getAmount());
+            }
+            return null;
         }
     }
 }

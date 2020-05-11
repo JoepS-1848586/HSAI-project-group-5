@@ -20,6 +20,12 @@ public class ProductEntity {
     private int timesviewed = 0;
     private int timesbought = 0;
 
+    // shoppingcart
+    private int inCart = 0;
+
+    // reservation
+    private int reservated = 0;
+
     public ProductEntity(String productName, int Price, String Store, String Image, String categorie) {
         this.productName = productName;
         this.Price = Price;
@@ -99,5 +105,21 @@ public class ProductEntity {
 
     public void setWishlist(boolean wishlist) {
         isWishlist = wishlist;
+    }
+
+    public int getInCart() {
+        return inCart;
+    }
+
+    public void setInCart(int inCart) {
+        this.inCart = inCart;
+    }
+
+    public int getReservated() {
+        return reservated;
+    }
+
+    public void setReservated(int reservated) {
+        this.reservated = reservated;
     }
 }

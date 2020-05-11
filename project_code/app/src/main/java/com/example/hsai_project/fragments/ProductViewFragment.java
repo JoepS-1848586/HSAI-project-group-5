@@ -1,13 +1,9 @@
 package com.example.hsai_project.fragments;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +15,6 @@ import com.example.hsai_project.ProductDao;
 import com.example.hsai_project.ProductDatabase;
 import com.example.hsai_project.ProductEntity;
 import com.example.hsai_project.R;
-import com.example.hsai_project.WishlistEntity;
 
 import com.bumptech.glide.Glide;
 
@@ -52,6 +47,8 @@ public class ProductViewFragment extends Fragment {
                 toggleFavorite(v);
             }
         });
+        if(m_product.isWishlist())
+            fav.setImageResource(R.drawable.ic_favorite_black_24dp);
 
         TextView name = (TextView) root.findViewById(R.id.product_text);
         name.setText(m_product.getProductName());
@@ -72,35 +69,34 @@ public class ProductViewFragment extends Fragment {
 
     private void toggleFavorite(View v){
         ImageView view = ((ImageView)v);
-        m_fav = !m_fav;
-        if(m_fav) {
-            view.setImageResource(R.drawable.ic_favorite_black_24dp);
+        if(m_product.isWishlist()) {
+            view.setImageResource(R.drawable.ic_favorite_border_black_24dp);
             removeFromWishlist();
         }
         else {
             addToWishlist();
-            view.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+            view.setImageResource(R.drawable.ic_favorite_black_24dp);
         }
     }
 
 
     private void addToWishlist(){
-        new UpdateWishlistAsyncTask(ProductDatabase.getInstance(getContext()).productDao()).execute(new WishlistEntity(m_product.getId()));
+       new UpdateWishlistAsyncTask(ProductDatabase.getInstance(getContext()).productDao()).execute(m_product.getId());
     }
 
     private void removeFromWishlist(){
        new DeleteWishlistAsyncTask(ProductDatabase.getInstance(getContext()).productDao()).execute(m_product.getId());
     }
 
-    private static class UpdateWishlistAsyncTask extends AsyncTask<WishlistEntity, Void, Void>{
+    private static class UpdateWishlistAsyncTask extends AsyncTask<Integer, Void, Void>{
         private ProductDao productDao;
         private UpdateWishlistAsyncTask(ProductDao productDao){
             this.productDao = productDao;
         }
         @Override
-        protected Void doInBackground(WishlistEntity... entities) {
+        protected Void doInBackground(Integer... entities) {
             for(int i = 0; i < entities.length;++i) {
-                productDao.insertWishlist(entities[i]);
+                productDao.addToWishlist(entities[i]);
             }
             return null;
         }
@@ -114,11 +110,10 @@ public class ProductViewFragment extends Fragment {
         @Override
         protected Void doInBackground(Integer... ids) {
             for(int i = 0; i < ids.length;++i) {
-                productDao.deleteWishlist(ids[i]);
+                productDao.removeFromWishlist(ids[i]);
             }
             return null;
         }
     }
-
 
 }
