@@ -1,5 +1,6 @@
 package com.example.hsai_project;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -16,6 +17,8 @@ import androidx.room.Room;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+
+import static com.example.hsai_project.R.string.title_products;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,10 +67,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
+
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @SuppressLint("ResourceType")
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
                 getSupportActionBar().setTitle(destination.getLabel());
+
+                if((destination.getId() == R.id.product_list) || (destination.getId() == R.id.product_item_view) || (destination.getId() == R.id.product_categorie_sub)){
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                }
+                else{
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                }
             }
         });
 

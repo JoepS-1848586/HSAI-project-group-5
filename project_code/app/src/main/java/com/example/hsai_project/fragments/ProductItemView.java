@@ -1,5 +1,6 @@
 package com.example.hsai_project.fragments;
 
+import android.app.ActionBar;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -74,7 +75,6 @@ public class ProductItemView extends Fragment {
         });
 
 
-
         m_data.observe(getViewLifecycleOwner(), new Observer<List<ProductEntity>>() {
             @Override
             public void onChanged(List<ProductEntity> productEntities) {
@@ -105,7 +105,7 @@ public class ProductItemView extends Fragment {
                 }
             }
         });
-        
+
         return product;
     }
 

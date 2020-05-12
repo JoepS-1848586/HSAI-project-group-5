@@ -42,7 +42,7 @@ public class CompareFragment extends Fragment {
         final ImageView product_image_2 = root.findViewById(R.id.compare_image_product_2);
 
         final ImageView product_image_delete_1 = root.findViewById(R.id.compare_delete_1);
-        final ImageView product_image_delete_2 = root.findViewById(R.id.compare_delete_1);
+        final ImageView product_image_delete_2 = root.findViewById(R.id.compare_delete_2);
 
         compareProduct_1.setMovementMethod(new ScrollingMovementMethod());
         compareProduct_2.setMovementMethod(new ScrollingMovementMethod());
