@@ -11,7 +11,6 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 @Database(entities = {ProductEntity.class}, version = 1, exportSchema = false)
 public abstract class ProductDatabase extends RoomDatabase {
-
     private static ProductDatabase instance;
 
     public abstract ProductDao productDao();

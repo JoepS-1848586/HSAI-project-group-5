@@ -14,7 +14,10 @@ public class ProductEntity {
     private String Store;
     private String categorie;
     private String Image;
+
+
     private boolean isWishlist = false;
+    private boolean inCompare = false;
 
     // explore data
     private int timesviewed = 0;
@@ -105,6 +108,14 @@ public class ProductEntity {
 
     public void setWishlist(boolean wishlist) {
         isWishlist = wishlist;
+    }
+
+    public boolean isInCompare() {
+        return inCompare;
+    }
+
+    public void setInCompare(boolean inCompare) {
+        this.inCompare = inCompare;
     }
 
     public int getInCart() {

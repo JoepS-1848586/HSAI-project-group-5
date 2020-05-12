@@ -3,6 +3,7 @@ package com.example.hsai_project;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,12 +14,13 @@ import java.util.List;
 
 public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.WishlistHolder> {
     private List<ProductEntity>wishlistproducts = new ArrayList<>();
+    private WishlistAdapter.OnitemDeleteClickListener deletelistener;
 
     @NonNull
     @Override
     public WishlistHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View wishListView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_product_view, parent, false);
+                .inflate(R.layout.fragment_wishlist_item, parent, false);
         return new WishlistHolder(wishListView);
     }
 
@@ -40,14 +42,30 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.Wishli
 
     class WishlistHolder extends RecyclerView.ViewHolder{
         private TextView wishlistProduct;
+        private ImageView deleteProduct;
 
         public WishlistHolder(@NonNull View itemView) {
             super(itemView);
-            wishlistProduct = itemView.findViewById(R.id.product_text);
+            wishlistProduct = itemView.findViewById(R.id.wishlist_item_text);
+            deleteProduct = itemView.findViewById(R.id.wishlist_item_delete_image);
+            deleteProduct.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if(deletelistener != null && position != RecyclerView.NO_POSITION)
+                        deletelistener.onItemDeleteClick(wishlistproducts.get(position));
+                }
+            });
         }
     }
 
+    public interface OnitemDeleteClickListener{
+        void onItemDeleteClick(ProductEntity productEntity);
+    }
 
+    public void setOnItemDeleteClickListener(WishlistAdapter.OnitemDeleteClickListener deletelistener){
+        this.deletelistener = deletelistener;
+    }
 
 }
 

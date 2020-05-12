@@ -11,6 +11,7 @@ public class ProductRepository {
     private ProductDao productDao;
     private LiveData<List<ProductEntity>>allProducts;
     private LiveData<List<ProductEntity>>allWishlistProducts;
+    /*private LiveData<List<ProductEntity>>allCompareProducts;*/
 
     private LiveData<List<ProductEntity>> topviewed;
 
@@ -19,6 +20,7 @@ public class ProductRepository {
         productDao = database.productDao();
         allProducts = productDao.getAllProducts();
         allWishlistProducts = productDao.getAllWishlistProducts();
+        /*allCompareProducts = productDao.getAllCompareProducts();*/
 
         // explore
         topviewed = productDao.getTopViewed();
@@ -44,7 +46,11 @@ public class ProductRepository {
         return allWishlistProducts;
     }
 
+    /*public LiveData<List<ProductEntity>> getAllCompareProducts() {
+        return getAllCompareProducts();
+    }*/
     public LiveData<List<ProductEntity>> getTopviewed(){ return topviewed;}
+
 
 
     private static class InsertProductAsyncTask extends AsyncTask<ProductEntity, Void, Void>{
