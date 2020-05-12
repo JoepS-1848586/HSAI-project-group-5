@@ -49,6 +49,7 @@ public class FilterList extends Fragment {
             @Override
             public void onClick(View v) {
                 filter();
+                getFragmentManager().beginTransaction().remove(FilterList.this).commit();
             }
         });
 
