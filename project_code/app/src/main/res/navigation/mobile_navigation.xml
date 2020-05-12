@@ -40,7 +40,7 @@
 
     <fragment
         android:id="@+id/bottom_nav_shops"
-        android:name="com.example.hsai_project.fragments.ShopsFragment"
+        android:name="com.example.hsai_project.fragments.shops.ShopsFragment"
         android:label="@string/title_shops"
         tools:layout="@layout/fragment_shops" />
 
