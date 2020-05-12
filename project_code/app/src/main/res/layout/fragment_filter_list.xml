@@ -8,11 +8,20 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/close_filter"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_close_black_24dp"/>
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/sort_scroll"
-            android:layout_above="@id/sort_apply">
+            android:layout_above="@id/sort_apply"
+            android:layout_marginTop="60dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

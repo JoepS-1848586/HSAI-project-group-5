@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ import com.example.hsai_project.ProductEntity;
 import com.example.hsai_project.ProductListAdapter;
 import com.example.hsai_project.ProductListViewModel;
 import com.example.hsai_project.R;
+import com.example.hsai_project.fragments.filter.FilterList;
 
 import java.util.List;
 import java.util.Vector;
@@ -47,6 +50,17 @@ public class ProductListFragment extends Fragment {
         final ProductListAdapter adapter = new ProductListAdapter();
         recyclerView.setAdapter(adapter);
         productListViewModel = ViewModelProviders.of(ProductListFragment.this).get(ProductListViewModel.class);
+        final ImageView filterButton = product.findViewById(R.id.filter_image_list);
+
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final FilterList filterList = new FilterList();
+                getChildFragmentManager().beginTransaction().add(R.id.filter_container, filterList).commit();
+            }
+        });
+
+
 
         adapter.setOnItemClickListener(new ProductListAdapter.OnitemClickListener() {
             @Override

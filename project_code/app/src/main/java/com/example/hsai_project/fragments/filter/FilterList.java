@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.hsai_project.ProductEntity;
@@ -35,6 +36,14 @@ public class FilterList extends Fragment {
                              Bundle savedInstanceState) {
         View root =  inflater.inflate(R.layout.fragment_filter_list, container, false);
 
+        ImageView close_filter = root.findViewById(R.id.close_filter);
+        close_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().remove(FilterList.this).commit();
+            }
+        });
+
         Button apply = (Button)root.findViewById(R.id.sort_apply);
         apply.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +56,7 @@ public class FilterList extends Fragment {
         addFrag(new FilterSortOption(), "Sorteren op");
         addFrag(new FilterMerk(), "Merk");
         addFrag(new FilterScreensize(), "Schermgrootte");
+
 
         return root;
     }
