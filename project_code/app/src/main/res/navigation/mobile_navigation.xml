@@ -9,7 +9,11 @@
         android:id="@+id/bottom_nav_explore"
         android:name="com.example.hsai_project.fragments.explore.ExploreFragment"
         android:label="@string/title_explore"
-        tools:layout="@layout/fragment_explore" />
+        tools:layout="@layout/fragment_explore" >
+        <action
+            android:id="@+id/action_bottom_nav_explore_to_product_item_view"
+            app:destination="@id/product_item_view" />
+    </fragment>
 
     <fragment
         android:id="@+id/bottom_nav_products"
@@ -48,14 +52,8 @@
         android:label="@string/title_products"
         tools:layout="@layout/fragment_product_item_view" >
         <argument
-            android:name="productName"
-            app:argType="string" />
-        <argument
-            android:name="productPrice"
+            android:name="productId"
             app:argType="integer" />
-        <argument
-            android:name="productImage"
-            app:argType="string"/>
 
     </fragment>
 

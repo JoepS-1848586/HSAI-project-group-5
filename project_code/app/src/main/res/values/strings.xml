@@ -33,4 +33,5 @@
     <string name="sortoption_lowtohigh">Prijs: laag naar hoog</string>
     <string name="sortoption_alf">Alfabetisch</string>
 
+    <string name="compare_no_product">Geen product gekozen</string>
 </resources>

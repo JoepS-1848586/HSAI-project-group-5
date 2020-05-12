@@ -38,6 +38,10 @@ public class ExploreFragment extends Fragment {
 
         frag = new ExploreScrollFragment(db.productDao().get10Cat("Laptop"), "Top 10 laptops");
         addFragment(frag);
+        frag = new ExploreScrollFragment(db.productDao().get10Cat("PC"), "Top 10 dekstops");
+        addFragment(frag);
+        frag = new ExploreScrollFragment(db.productDao().get10Cat("Coffee"), "Top 10 koffiezetapparaten");
+        addFragment(frag);
     }
 
     private void addFragment(ExploreScrollFragment frag){

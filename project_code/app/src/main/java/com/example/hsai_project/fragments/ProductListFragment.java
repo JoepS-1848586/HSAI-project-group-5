@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hsai_project.ProductDatabase;
 import com.example.hsai_project.ProductEntity;
 import com.example.hsai_project.ProductListAdapter;
 import com.example.hsai_project.ProductListViewModel;
@@ -32,7 +34,6 @@ import java.util.Vector;
 
 public class ProductListFragment extends Fragment {
     private ProductListViewModel productListViewModel;
-    private int counter = 0;
     public Vector<ProductEntity> inCompareProducts = new Vector<>();
 
     public View onCreateView(LayoutInflater inflater,
@@ -50,13 +51,7 @@ public class ProductListFragment extends Fragment {
         adapter.setOnItemClickListener(new ProductListAdapter.OnitemClickListener() {
             @Override
             public void onItemClick(ProductEntity productEntity) {
-                String productName = productEntity.getProductName();
-                int productPrice = productEntity.getId();
-                String productImage = productEntity.getImage();
-                ProductListFragmentDirections.ActionProductListToProductItemView action = ProductListFragmentDirections.actionProductListToProductItemView("hello", 5, "image");
-                action.setProductName(productName);
-                action.setProductPrice(productPrice);
-                action.setProductImage(productImage);
+                ProductListFragmentDirections.ActionProductListToProductItemView action = ProductListFragmentDirections.actionProductListToProductItemView(productEntity.getId());
                 Navigation.findNavController(product).navigate(action);
             }
         });
@@ -78,21 +73,27 @@ public class ProductListFragment extends Fragment {
 
         adapter.setOnItemCompareClickListener(new ProductListAdapter.OnitemCompareClickListener() {
             @Override
-            public void onItemCompareClick(ProductEntity productEntity) {
-                boolean inCompare = productEntity.isInCompare();
-                if((!inCompare) && (counter < 2)){
-                    Toast.makeText(getContext(), productEntity.getProductName() + " is toegevoegd aan vergelijking", Toast.LENGTH_SHORT).show();
-                    productEntity.setInCompare(true);
-                    productListViewModel.update(productEntity);
-                    inCompareProducts.add(productEntity);
-                    counter++;
-                }
-                else if(inCompare){
-                    Toast.makeText(getContext(), productEntity.getProductName() + " zit al in vergelijking", Toast.LENGTH_SHORT).show();
-                }
-                else if (counter == 2){
-                    Toast.makeText(getContext(), "je kan niks meer toevoegen", Toast.LENGTH_SHORT).show();
-                }
+            public void onItemCompareClick(final ProductEntity productEntity) {
+                final boolean inCompare = productEntity.isInCompare();
+                LiveData<Integer> counter = comparedItems();
+                counter.observe(getViewLifecycleOwner(), new Observer<Integer>() {
+                    @Override
+                    public void onChanged(Integer integer) {
+                        if(integer == null)
+                            return;
+                        if((!inCompare) && (integer < 2)){
+                            Toast.makeText(getContext(), productEntity.getProductName() + " is toegevoegd aan vergelijking", Toast.LENGTH_SHORT).show();
+                            productEntity.setInCompare(true);
+                            productListViewModel.update(productEntity);
+                        }
+                        else if(inCompare){
+                            Toast.makeText(getContext(), productEntity.getProductName() + " zit al in vergelijking", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (integer == 2){
+                            Toast.makeText(getContext(), "je kan niks meer toevoegen", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
 
@@ -114,5 +115,10 @@ public class ProductListFragment extends Fragment {
         });
 
         return product;
+    }
+
+    private LiveData<Integer> comparedItems(){
+        ProductDatabase db = ProductDatabase.getInstance(getContext());
+        return db.productDao().getCompared();
     }
 }

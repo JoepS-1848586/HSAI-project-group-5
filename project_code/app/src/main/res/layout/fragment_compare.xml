@@ -14,7 +14,7 @@
         android:layout_width="250dp"
         android:layout_height="100dp"
         android:layout_toRightOf="@+id/compare_image_product_1"
-        android:text="No product selected"
+        android:text="@string/compare_no_product"
         android:textSize="30dp"
         android:textAlignment="center"
         android:id="@+id/compare_product_name_1"/>
@@ -43,7 +43,7 @@
         android:layout_height="100dp"
         android:layout_toRightOf="@+id/compare_image_product_2"
         android:layout_below="@+id/compare_text_product_1"
-        android:text="No product selected"
+        android:text="@string/compare_no_product"
         android:textSize="30dp"
         android:textAlignment="center"
         android:id="@+id/compare_product_name_2"/>

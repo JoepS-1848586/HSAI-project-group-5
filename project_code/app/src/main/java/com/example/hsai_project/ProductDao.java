@@ -27,8 +27,12 @@ public interface ProductDao {
     LiveData<List<ProductEntity>>getAllProducts();
 
 
+    // compare
     @Query("SELECT * FROM product_table WHERE inCompare = 1")
     LiveData<List<ProductEntity>>getAllCompareProducts();
+
+    @Query("SELECT COUNT(*) FROM product_table WHERE inCompare = 1")
+    LiveData<Integer> getCompared();
 
     @Query("SELECT * FROM product_table WHERE id = :id")
     LiveData<List<ProductEntity>>getFullProduct(int id);
@@ -65,7 +69,5 @@ public interface ProductDao {
 
     @Query("UPDATE product_table SET isWishlist = 0 WHERE id =:id")
     void removeFromWishlist(int id);
-
-
 
 }

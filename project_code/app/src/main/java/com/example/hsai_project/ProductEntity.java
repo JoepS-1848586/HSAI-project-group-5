@@ -14,6 +14,7 @@ public class ProductEntity {
     private String Store;
     private String categorie;
     private String Image;
+    private String description = "";
 
 
     private boolean isWishlist = false;
@@ -132,5 +133,13 @@ public class ProductEntity {
 
     public void setReservated(int reservated) {
         this.reservated = reservated;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
