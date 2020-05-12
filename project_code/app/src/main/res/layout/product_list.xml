@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_products"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="38dp"
         />
 
+    <ImageView
+        android:id="@+id/compare_image_navigator"
+        android:layout_width="54dp"
+        android:layout_height="42dp"
+        android:src="@drawable/ic_compare_arrows_black_24dp" />
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/filter_image_list"
+        android:layout_width="54dp"
+        android:layout_height="42dp"
+        android:layout_marginLeft="300dp"
+        android:src="@drawable/ic_account_circle_black_24dp" />
+
+
+</RelativeLayout>

@@ -1,13 +1,16 @@
 package com.example.hsai_project.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -25,36 +28,91 @@ import com.example.hsai_project.ProductListViewModel;
 import com.example.hsai_project.R;
 
 import java.util.List;
+import java.util.Vector;
 
 public class ProductListFragment extends Fragment {
     private ProductListViewModel productListViewModel;
+    private int counter = 0;
+    public Vector<ProductEntity> inCompareProducts = new Vector<>();
+
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View product = inflater.inflate(R.layout.product_list, container, false);
+        /*product.setMinimumWidth(20);*/
 
         RecyclerView recyclerView = product.findViewById(R.id.recycler_view_products);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setHasFixedSize(true);
-
         final ProductListAdapter adapter = new ProductListAdapter();
         recyclerView.setAdapter(adapter);
         productListViewModel = ViewModelProviders.of(ProductListFragment.this).get(ProductListViewModel.class);
 
+        adapter.setOnItemClickListener(new ProductListAdapter.OnitemClickListener() {
+            @Override
+            public void onItemClick(ProductEntity productEntity) {
+                String productName = productEntity.getProductName();
+                int productPrice = productEntity.getId();
+                String productImage = productEntity.getImage();
+                ProductListFragmentDirections.ActionProductListToProductItemView action = ProductListFragmentDirections.actionProductListToProductItemView("hello", 5, "image");
+                action.setProductName(productName);
+                action.setProductPrice(productPrice);
+                action.setProductImage(productImage);
+                Navigation.findNavController(product).navigate(action);
+            }
+        });
 
+        adapter.setOnItemFavClickListener(new ProductListAdapter.OnitemFavClickListener() {
+            @Override
+            public void onItemFavClick(ProductEntity productEntity) {
+
+                boolean isWishlist = productEntity.isWishlist();
+                if(!isWishlist){
+                    Toast.makeText(getContext(),productEntity.getProductName() + " has been added to the wishlist", Toast.LENGTH_SHORT).show();
+                }
+
+                productEntity.setWishlist(!isWishlist);
+                productListViewModel.update(productEntity);
+
+            }
+        });
+
+        adapter.setOnItemCompareClickListener(new ProductListAdapter.OnitemCompareClickListener() {
+            @Override
+            public void onItemCompareClick(ProductEntity productEntity) {
+                boolean inCompare = productEntity.isInCompare();
+                if((!inCompare) && (counter < 2)){
+                    Toast.makeText(getContext(), productEntity.getProductName() + " is toegevoegd aan vergelijking", Toast.LENGTH_SHORT).show();
+                    productEntity.setInCompare(true);
+                    productListViewModel.update(productEntity);
+                    inCompareProducts.add(productEntity);
+                    counter++;
+                }
+                else if(inCompare){
+                    Toast.makeText(getContext(), productEntity.getProductName() + " zit al in vergelijking", Toast.LENGTH_SHORT).show();
+                }
+                else if (counter == 2){
+                    Toast.makeText(getContext(), "je kan niks meer toevoegen", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         productListViewModel.getAllProducts().observe(getViewLifecycleOwner(), new Observer<List<ProductEntity>>() {
             @Override
             public void onChanged(List<ProductEntity> productEntities) {
                 adapter.setProducts(productEntities);
+                /*Toast.makeText(getContext(), "something changed", Toast.LENGTH_SHORT).show();*/
+            }
+        });
+
+        ImageView goToCompare = product.findViewById(R.id.compare_image_navigator);
+
+        goToCompare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(product).navigate(R.id.list_nav_compare);
             }
         });
 
         return product;
     }
-
-
-        //final TextView textView = root.findViewById(R.id.text_products);
-        //textView.setText("products");
-
-
 }

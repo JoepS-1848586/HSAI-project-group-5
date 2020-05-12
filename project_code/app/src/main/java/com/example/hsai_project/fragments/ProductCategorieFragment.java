@@ -35,7 +35,7 @@ public class ProductCategorieFragment extends Fragment {
             String chosenCategory = args.getChosenCategory();
             if(chosenCategory == "Laptops & Computers"){
                 String[] categories_1 = {"Laptops", "Computers"};
-                int[] categorieImage = {R.drawable.ic_account_circle_black_24dp, R.drawable.ic_add_circle_outline_black_24dp};
+                int[] categorieImage = {R.drawable.ic_laptop_windows_black_150dp, R.drawable.ic_desktop_windows_black_150dp};
 
                 ProductAdapter adapter = new ProductAdapter(this.getContext(), categories_1, categorieImage);
                 gridView.setAdapter(adapter);

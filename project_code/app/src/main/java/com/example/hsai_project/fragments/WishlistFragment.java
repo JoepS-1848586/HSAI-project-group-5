@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,6 +20,7 @@ import com.example.hsai_project.ProductListAdapter;
 import com.example.hsai_project.ProductListViewModel;
 import com.example.hsai_project.R;
 import com.example.hsai_project.WishlistAdapter;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -27,7 +29,7 @@ public class WishlistFragment extends Fragment {
     private ProductListViewModel productListViewModel;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_wishlist, container, false);
+        final View root = inflater.inflate(R.layout.fragment_wishlist, container, false);
 
         RecyclerView recyclerView = root.findViewById(R.id.wishlistList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -37,7 +39,20 @@ public class WishlistFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         productListViewModel = ViewModelProviders.of(WishlistFragment.this).get(ProductListViewModel.class);
 
+        adapter.setOnItemDeleteClickListener(new WishlistAdapter.OnitemDeleteClickListener() {
+            @Override
+            public void onItemDeleteClick(ProductEntity productEntity) {
+                boolean isWishlist = productEntity.isWishlist();
+                if(isWishlist){
+                    /*Toast.makeText(getContext(),productEntity.getProductName() + " has been deleted", Toast.LENGTH_SHORT).show();*/
+                    Snackbar removeElement = Snackbar.make(root, productEntity.getProductName() + " is verwijderd", Snackbar.LENGTH_LONG);
+                    removeElement.show();
+                }
 
+                productEntity.setWishlist(!isWishlist);
+                productListViewModel.update(productEntity);
+            }
+        });
 
         productListViewModel.getAllWishlistProducts().observe(getViewLifecycleOwner(), new Observer<List<ProductEntity>>() {
             @Override
@@ -50,5 +65,9 @@ public class WishlistFragment extends Fragment {
         textView.setText("wishlist");*/
 
         return root;
+    }
+
+    public void onClick(View v){
+        Toast.makeText(getContext(), "trying to remove", Toast.LENGTH_SHORT);
     }
 }

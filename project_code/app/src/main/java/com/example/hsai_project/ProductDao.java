@@ -22,8 +22,14 @@ public interface ProductDao {
     @Query("SELECT * FROM product_table ORDER BY Price ASC")
     LiveData<List<ProductEntity>>getAllProducts();
 
-    @Query("SELECT * FROM product_table WHERE isWishlist == 1 ORDER BY Price DESC")
+    @Query("SELECT * FROM product_table WHERE isWishlist == 1 ORDER BY Price ASC")
     LiveData<List<ProductEntity>>getAllWishlistProducts();
+
+    @Query("SELECT * FROM product_table WHERE inCompare = 1")
+    LiveData<List<ProductEntity>>getAllCompareProducts();
+
+    @Query("SELECT * FROM product_table WHERE id = :id")
+    LiveData<List<ProductEntity>>getFullProduct(int id);
 
 
 }

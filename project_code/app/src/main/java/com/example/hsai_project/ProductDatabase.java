@@ -11,7 +11,6 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 @Database(entities = {ProductEntity.class}, version = 1)
 public abstract class ProductDatabase extends RoomDatabase {
-
     private static ProductDatabase instance;
 
     public abstract ProductDao productDao();
@@ -39,10 +38,10 @@ public abstract class ProductDatabase extends RoomDatabase {
         }
         @Override
         protected Void doInBackground(Void... voids) {
-            productDao.insert(new ProductEntity("Laptop", 297, "MediaMarkt", "https://i.redd.it/qnw9dn0rvau31.png", true));
-            productDao.insert(new ProductEntity("PC", 420, "MediaMarkt", "https://i.redd.it/qnw9dn0rvau31.png", false));
-            productDao.insert(new ProductEntity("Laptop_2", 555, "MediaMarkt", "https://i.redd.it/qnw9dn0rvau31.png", true));
-            productDao.insert(new ProductEntity("MacBook", 555, "MediaMarkt", "https://i.redd.it/qnw9dn0rvau31.png", false));
+            productDao.insert(new ProductEntity("Laptop", 297, "MediaMarkt", "https://i.redd.it/qnw9dn0rvau31.png", false, false));
+            productDao.insert(new ProductEntity("PC", 420, "MediaMarkt", "https://i.redd.it/qnw9dn0rvau31.png", false, false));
+            productDao.insert(new ProductEntity("Laptop_2", 555, "MediaMarkt", "https://i.redd.it/qnw9dn0rvau31.png", false, false));
+            productDao.insert(new ProductEntity("MacBook", 555, "MediaMarkt", "https://i.redd.it/qnw9dn0rvau31.png", false, false));
             return null;
         }
     }

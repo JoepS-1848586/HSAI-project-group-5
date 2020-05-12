@@ -24,11 +24,10 @@ public class ProductsFragment extends Fragment {
         final View root = inflater.inflate(R.layout.fragment_products, container, false);
 
         final String[] categories = {"Laptops & Computers", "Telefoons", "Huishouden", "Gaming & Entertainment"};
-        ListView categorieView = (ListView)root.findViewById(R.id.productCategoriesList);
+        ListView categorieView = (ListView) root.findViewById(R.id.productCategoriesList);
 
         ArrayAdapter<String>categoriesAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, categories);
         categorieView.setAdapter(categoriesAdapter);
-        String title = text.
 
         categorieView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

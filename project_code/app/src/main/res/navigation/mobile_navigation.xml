@@ -32,10 +32,31 @@
     </fragment>
 
     <fragment
+        android:id="@+id/product_item_view"
+        android:name="com.example.hsai_project.fragments.ProductItemView"
+        android:label="@string/title_products"
+        tools:layout="@layout/fragment_product_item_view" >
+        <argument
+            android:name="productName"
+            app:argType="string" />
+        <argument
+            android:name="productPrice"
+            app:argType="integer" />
+        <argument
+            android:name="productImage"
+            app:argType="string"/>
+
+    </fragment>
+
+    <fragment
         android:id="@+id/product_list"
         android:name="com.example.hsai_project.fragments.ProductListFragment"
         android:label="@string/title_products"
-        tools:layout="@layout/product_list" />
+        tools:layout="@layout/product_list" >
+        <action
+            android:id="@+id/action_product_list_to_product_item_view"
+            app:destination="@id/product_item_view" />
+    </fragment>
 
 
     <fragment

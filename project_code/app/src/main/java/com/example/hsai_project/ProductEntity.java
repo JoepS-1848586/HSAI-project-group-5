@@ -14,13 +14,16 @@ public class ProductEntity {
     private String Store;
     private String Image;
     private boolean isWishlist;
+    private boolean inCompare;
 
-    public ProductEntity(String productName, int Price, String Store, String Image, boolean isWishlist) {
+
+    public ProductEntity(String productName, int Price, String Store, String Image, boolean isWishlist, boolean inCompare) {
         this.productName = productName;
         this.Price = Price;
         this.Store = Store;
         this.Image = Image;
         this.isWishlist = isWishlist;
+        this.inCompare = inCompare;
     }
 
     public void setId(int id) {
@@ -69,5 +72,13 @@ public class ProductEntity {
 
     public void setWishlist(boolean wishlist) {
         isWishlist = wishlist;
+    }
+
+    public boolean isInCompare() {
+        return inCompare;
+    }
+
+    public void setInCompare(boolean inCompare) {
+        this.inCompare = inCompare;
     }
 }
