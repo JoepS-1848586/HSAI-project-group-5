@@ -97,10 +97,17 @@ public class CompareFragment extends Fragment {
         m_data.observe(getViewLifecycleOwner(), new Observer<List<ProductEntity>>() {
             @Override
             public void onChanged(List<ProductEntity> productEntities) {
-                 product_1.setText(m_data.getValue().get(0).getProductName());
-                 product_2.setText(m_data.getValue().get(1).getProductName());
-                if (m_data.getValue() == null){
+                if (m_data.getValue() == null) {
                     return;
+                } else if (m_data.getValue().size() <= 0){
+                    product_1.setText(getString(R.string.compare_no_product));
+                    Glide.with(getContext()).load("").into(product_image_1);
+                    product_image_delete_1.setVisibility(View.INVISIBLE);
+                    compareProduct_1.setText("");
+                    product_2.setText(getString(R.string.compare_no_product));
+                    Glide.with(getContext()).load("").into(product_image_2);
+                    product_image_delete_2.setVisibility(View.INVISIBLE);
+                    compareProduct_2.setText("");
                 }
                 else if (m_data.getValue().size() == 1){
                     product_1.setText(m_data.getValue().get(0).getProductName());
