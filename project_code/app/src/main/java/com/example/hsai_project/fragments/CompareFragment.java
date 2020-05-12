@@ -27,24 +27,22 @@ import java.util.List;
 import java.util.Vector;
 
 public class CompareFragment extends Fragment {
-    public ProductListFragment ProductCompare;
     private ProductListViewModel productListViewModel;
-    Vector<ProductEntity>compareProducts = new Vector();
-    /*public void fillVector(){
-        for(int i = 0; i < ProductCompare.inCompareProducts.size(); i++){
-            compareProducts.add(ProductCompare.inCompareProducts.get(i));
-        }
-    }*/
     @RequiresApi(api = Build.VERSION_CODES.M)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_compare, container, false);
         final TextView compareProduct_1 = root.findViewById(R.id.compare_text_product_1);
         final TextView compareProduct_2 = root.findViewById(R.id.compare_text_product_2);
+
         final TextView product_1 = root.findViewById(R.id.compare_product_name_1);
         final TextView product_2 = root.findViewById(R.id.compare_product_name_2);
-        ImageView product_image_1 = root.findViewById(R.id.compare_image_product_1);
-        ImageView product_image_2 = root.findViewById(R.id.compare_image_product_2);
+
+        final ImageView product_image_1 = root.findViewById(R.id.compare_image_product_1);
+        final ImageView product_image_2 = root.findViewById(R.id.compare_image_product_2);
+
+        final ImageView product_image_delete_1 = root.findViewById(R.id.compare_delete_1);
+        final ImageView product_image_delete_2 = root.findViewById(R.id.compare_delete_1);
 
         compareProduct_1.setMovementMethod(new ScrollingMovementMethod());
         compareProduct_2.setMovementMethod(new ScrollingMovementMethod());
@@ -69,16 +67,43 @@ public class CompareFragment extends Fragment {
         ProductDatabase db = ProductDatabase.getInstance(getContext());
         final LiveData<List<ProductEntity>>  m_data = db.productDao().getAllCompareProducts();
 
-        if (m_data.getValue() == null){
-            product_1.setText("No products selected");
-            product_2.setText("No products selected");
-        }
+        product_image_delete_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(m_data.getValue().size()>0){
+                    m_data.getValue().get(0).setInCompare(false);
+                    productListViewModel.update(m_data.getValue().get(0));
+                }
+            }
+        });
+
+        product_image_delete_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(m_data.getValue().size() >= 1){
+                    m_data.getValue().get(1).setInCompare(false);
+                    productListViewModel.update(m_data.getValue().get(1));
+                }
+            }
+        });
+
 
         m_data.observe(getViewLifecycleOwner(), new Observer<List<ProductEntity>>() {
             @Override
             public void onChanged(List<ProductEntity> productEntities) {
-                 product_1.setText(m_data.getValue().get(0).getProductName());
-                 product_2.setText(m_data.getValue().get(1).getProductName());
+                if (m_data.getValue() == null){
+
+                }
+                else if (m_data.getValue().size() == 1){
+                    product_1.setText(m_data.getValue().get(0).getProductName());
+                    Glide.with(getContext()).load(m_data.getValue().get(0).getImage()).into(product_image_1);
+                }
+                else if (m_data.getValue().size() >= 2){
+                    product_1.setText(m_data.getValue().get(0).getProductName());
+                    Glide.with(getContext()).load(m_data.getValue().get(0).getImage()).into(product_image_1);
+                    product_2.setText(m_data.getValue().get(1).getProductName());
+                    Glide.with(getContext()).load(m_data.getValue().get(1).getImage()).into(product_image_2);
+                }
             }
         });
 
