@@ -65,6 +65,7 @@ public class ProductRepository {
         }
     }
 
+
     private static class UpdateProductAsyncTask extends AsyncTask<ProductEntity, Void, Void>{
         private ProductDao productDao;
         private UpdateProductAsyncTask(ProductDao productDao){

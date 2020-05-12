@@ -15,14 +15,17 @@
             android:layout_centerHorizontal="true"
             android:id="@+id/product_image_view"
             ></ImageView>
+
+
         <TextView
             android:layout_width="305dp"
             android:layout_height="100dp"
             android:layout_below="@+id/product_image_view"
             android:text="Productname"
             android:textSize="40dp"
-            android:id="@+id/product_name_view"
-            android:textAlignment="center">
+            android:id="@+id/product_name_view">
+            <!--android:textAlignment="center"-->
+
         </TextView>
 
         <ImageView
@@ -49,10 +52,6 @@
             android:layout_toRightOf="@+id/product_euro_symbol_view"
             android:text="100"
             android:textSize="30dp"></TextView>
-<<<<<<< Updated upstream
-
-=======
-
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -141,6 +140,7 @@
             </RelativeLayout>
         </RelativeLayout>
 
+
         <RatingBar
             android:layout_width="wrap_content"
             android:layout_marginLeft="70dp"
@@ -175,7 +175,6 @@
             android:maxLines="0"
             android:ellipsize="end"
             />
->>>>>>> Stashed changes
     </RelativeLayout>
 
 </ScrollView>

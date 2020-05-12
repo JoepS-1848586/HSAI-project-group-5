@@ -128,9 +128,9 @@ public class ProductViewFragment extends Fragment {
        new DeleteWishlistAsyncTask(ProductDatabase.getInstance(getContext()).productDao()).execute(m_product.getId());
     }
 
-    private static class UpdateWishlistAsyncTask extends AsyncTask<Integer, Void, Void>{
+    protected static class UpdateWishlistAsyncTask extends AsyncTask<Integer, Void, Void>{
         private ProductDao productDao;
-        private UpdateWishlistAsyncTask(ProductDao productDao){
+        protected UpdateWishlistAsyncTask(ProductDao productDao){
             this.productDao = productDao;
         }
         @Override
@@ -142,9 +142,9 @@ public class ProductViewFragment extends Fragment {
         }
     }
 
-    private static class DeleteWishlistAsyncTask extends AsyncTask<Integer, Void, Void>{
+    public static class DeleteWishlistAsyncTask extends AsyncTask<Integer, Void, Void>{
         private ProductDao productDao;
-        private DeleteWishlistAsyncTask(ProductDao productDao){
+        protected DeleteWishlistAsyncTask(ProductDao productDao){
             this.productDao = productDao;
         }
         @Override
