@@ -22,6 +22,17 @@
     </fragment>
 
     <fragment
+        android:id="@+id/store_fragment"
+        android:name="com.example.hsai_project.fragments.shops.StoreFragment"
+        android:label="Store name"
+        tools:layout="@layout/fragment_store">
+        <argument
+            android:name="StoreId"
+            app:argType="integer"
+            android:defaultValue="0"></argument>
+    </fragment>
+
+    <fragment
         android:id="@+id/product_categorie_sub"
         android:name="com.example.hsai_project.fragments.ProductCategorieFragment"
         android:label="@string/title_products"
@@ -61,7 +72,7 @@
 
     <fragment
         android:id="@+id/bottom_nav_shops"
-        android:name="com.example.hsai_project.fragments.ShopsFragment"
+        android:name="com.example.hsai_project.fragments.shops.ShopsFragment"
         android:label="@string/title_shops"
         tools:layout="@layout/fragment_shops" />
 
