@@ -11,11 +11,26 @@
     <string name="title_profile">Profiel</string>
     <string name="title_notifications">Notificaties</string>
     <string name="title_settings">Instellingen</string>
+    <string name="title_shoppingcart_delete">Verwijder items uit shoppingcart</string>
     <string name="cancel_reservation">Annuleer</string>
     <string name="amountlabel_reservation">Aantal:</string>
     <string name="reservate_shoppingcart">Reserveer</string>
+    <string name="deletebutton_shoppingcart_delete">Haal items uit wagen</string>
+
+    <string name="reservation_cancel_text">Reservatie annuleren?</string>
+    <string name="reservation_cancel_confirm">Annuleer</string>
+    <string name="reservation_cancel_stop">Stoppen</string>
+    <string name="reservation_cancel_toast">Resevatie geannuleerd</string>
+    <string name="reservation_empty">Nog geen reservaties</string>
+
+    <string name="shoppingcart_empty">Geen items in je winkelwagen</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="sortoption_hightolow">Prijs: hoog naar laag</string>
+    <string name="sortoption_lowtohigh">Prijs: laag naar hoog</string>
+    <string name="sortoption_alf">Alfabetisch</string>
+
 </resources>

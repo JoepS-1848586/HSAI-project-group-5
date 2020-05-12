@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/bottom_nav_explore"
-        android:name="com.example.hsai_project.fragments.ExploreFragment"
+        android:name="com.example.hsai_project.fragments.explore.ExploreFragment"
         android:label="@string/title_explore"
         tools:layout="@layout/fragment_explore" />
 
@@ -79,13 +79,14 @@
 
     <fragment
         android:id="@+id/list_nav_shoppingcart"
-        android:name="com.example.hsai_project.fragments.ShoppingcartFragment"
+        android:name="com.example.hsai_project.fragments.shoppingcart.ShoppingcartFragment"
         android:label="@string/title_shoppingcart"
-        tools:layout="@layout/fragment_shoppingcart" />
+        tools:layout="@layout/fragment_shoppingcart" >
+    </fragment>
 
     <fragment
         android:id="@+id/list_nav_reservations"
-        android:name="com.example.hsai_project.fragments.ReservationsFragment"
+        android:name="com.example.hsai_project.fragments.reservations.ReservationsFragment"
         android:label="@string/title_reservations"
         tools:layout="@layout/fragment_reservations" />
 

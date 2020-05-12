@@ -16,6 +16,7 @@ public class ProductListViewModel extends AndroidViewModel {
     private LiveData<List<ProductEntity>>allProducts;
     private LiveData<List<ProductEntity>>allWishlistProducts;
     /*private LiveData<List<ProductEntity>>allCompareProducts;*//*= Transformations.switchMap(searchQuery, query -> {repository.getAllProducts(query)});*/
+    private LiveData<List<ProductEntity>> topviewed;
 
     public ProductListViewModel(@NonNull Application application) {
         super(application);
@@ -23,6 +24,7 @@ public class ProductListViewModel extends AndroidViewModel {
         allProducts = repository.getAllProducts();
         allWishlistProducts = repository.getAllWishlistProducts();
         /*allCompareProducts = repository.getAllCompareProducts();*/
+        topviewed = repository.getTopviewed();
     }
 
     public void insert(ProductEntity productEntity){
@@ -50,4 +52,7 @@ public class ProductListViewModel extends AndroidViewModel {
     }*/
 
 
+    public LiveData<List<ProductEntity>> getTopviewed() {
+        return topviewed;
+    }
 }

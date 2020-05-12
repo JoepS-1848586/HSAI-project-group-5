@@ -12,18 +12,29 @@ public class ProductEntity {
     private String productName;
     private int Price;
     private String Store;
+    private String categorie;
     private String Image;
-    private boolean isWishlist;
-    private boolean inCompare;
 
 
-    public ProductEntity(String productName, int Price, String Store, String Image, boolean isWishlist, boolean inCompare) {
+    private boolean isWishlist = false;
+    private boolean inCompare = false;
+
+    // explore data
+    private int timesviewed = 0;
+    private int timesbought = 0;
+
+    // shoppingcart
+    private int inCart = 0;
+
+    // reservation
+    private int reservated = 0;
+
+    public ProductEntity(String productName, int Price, String Store, String Image, String categorie) {
         this.productName = productName;
         this.Price = Price;
         this.Store = Store;
+        this.categorie = categorie;
         this.Image = Image;
-        this.isWishlist = isWishlist;
-        this.inCompare = inCompare;
     }
 
     public void setId(int id) {
@@ -58,6 +69,31 @@ public class ProductEntity {
         return Store;
     }
 
+    public String getCategorie() { return this.categorie;}
+
+    public int getTimesbought() {
+        return timesbought;
+    }
+
+    public int getTimesviewed() {
+        return timesviewed;
+    }
+
+    public void setCategorie(String categorie) {
+        this.categorie = categorie;
+    }
+
+    public void setTimesbought(int timesbought) {
+        this.timesbought = timesbought;
+    }
+
+    public void setTimesviewed(int timesviewed) {
+        this.timesviewed = timesviewed;
+    }
+
+    public void addView() { timesviewed+=1;}
+    public void addBuy() { timesbought += 1;}
+
     public String getImage() {
         return Image;
     }
@@ -80,5 +116,21 @@ public class ProductEntity {
 
     public void setInCompare(boolean inCompare) {
         this.inCompare = inCompare;
+    }
+
+    public int getInCart() {
+        return inCart;
+    }
+
+    public void setInCart(int inCart) {
+        this.inCart = inCart;
+    }
+
+    public int getReservated() {
+        return reservated;
+    }
+
+    public void setReservated(int reservated) {
+        this.reservated = reservated;
     }
 }
