@@ -16,8 +16,7 @@ public class ExploreFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_explore, container, false);
 
-        final TextView textView = root.findViewById(R.id.text_explore);
-        textView.setText("explore");
+
 
         return root;
     }
