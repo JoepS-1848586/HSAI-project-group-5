@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".fragments.ReservationsItemFragment"
+    tools:context=".fragments.reservations.ReservationsItemFragment"
     android:clickable="true">
 
 
@@ -27,11 +27,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PRODUCT NAME"></TextView>
+                android:text="PRODUCT NAME"
+                android:id="@+id/reservations_item_productname"></TextView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="STORE NAME"></TextView>
+                android:text="STORE NAME"
+                android:id="@+id/reservations_item_storename"></TextView>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -43,7 +45,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:background="#E15E5E"
+                android:background="@color/deleteRed"
                 android:id="@+id/reservations_item_removebutton"
                 android:text="@string/cancel_reservation"
                 android:textSize="12dp"

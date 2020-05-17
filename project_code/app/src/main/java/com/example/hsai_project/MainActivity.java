@@ -1,18 +1,24 @@
 package com.example.hsai_project;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.room.Room;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+
+import static com.example.hsai_project.R.string.title_products;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,5 +66,34 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
+
+
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @SuppressLint("ResourceType")
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                getSupportActionBar().setTitle(destination.getLabel());
+
+                if((destination.getId() == R.id.product_list) || (destination.getId() == R.id.product_item_view) || (destination.getId() == R.id.product_categorie_sub)){
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                }
+                else{
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                }
+            }
+        });
+
+
+        insertDataBaseTestData();
+    }
+
+
+    void insertDataBaseTestData(){
+        ProductDatabase db = Room.databaseBuilder(getApplicationContext(), ProductDatabase.class, "product_table")
+                .allowMainThreadQueries().build();
+
+
     }
 }
